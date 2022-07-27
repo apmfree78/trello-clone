@@ -1,4 +1,10 @@
-export const tasks = [
+interface taskProp {
+  category: string;
+  text: string;
+  desp: string;
+}
+
+export const tasks: taskProp[] = [
   { category: 'TODO', text: 'Yoga', desp: 'Go to Yoga' },
   { category: 'TODO', text: 'Gym', desp: 'Go to Gym' },
   { category: 'TODO', text: 'Read', desp: 'Read a Book' },

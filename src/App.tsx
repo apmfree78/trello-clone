@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Grid, Container } from '@mui/material';
+import TaskColumn from './components/TaskColumn';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -26,54 +27,13 @@ const App: React.FC = () => {
           alignItems='flex-start'
           spacing={2}>
           <Grid item xs={6} sm={4} md={3}>
-            <Box
-              sx={{
-                p: 2,
-                bgcolor: 'gray',
-                border: '1px',
-                display: 'grid',
-                gridTemplateColumns: { md: '1fr' },
-                gap: 2,
-              }}>
-              To Do
-              {[0, 1, 2].map((elevation) => (
-                <Item key={elevation} elevation={8}>
-                  {`to do task`}
-                </Item>
-              ))}
-            </Box>
+            <TaskColumn catagory='TO DO' />
           </Grid>
           <Grid item xs={6} sm={4} md={3}>
-            <Box
-              sx={{
-                p: 2,
-                bgcolor: 'background.default',
-                display: 'grid',
-                gridTemplateColumns: { md: '1fr' },
-                gap: 1,
-              }}>
-              {[0, 1, 2].map((elevation) => (
-                <Item key={elevation} elevation={8}>
-                  {`to do task`}
-                </Item>
-              ))}
-            </Box>
+            <TaskColumn catagory='IN PROGRESS' />
           </Grid>
           <Grid item xs={6} sm={4} md={3}>
-            <Box
-              sx={{
-                p: 2,
-                bgcolor: 'background.default',
-                display: 'grid',
-                gridTemplateColumns: { md: '1fr' },
-                gap: 1,
-              }}>
-              {[0, 1, 2, 4].map((elevation) => (
-                <Item key={elevation} elevation={8}>
-                  {`to do task`}
-                </Item>
-              ))}
-            </Box>
+            <TaskColumn catagory='DONE' />
           </Grid>
         </Grid>
       </ThemeProvider>
