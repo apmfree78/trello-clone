@@ -1,6 +1,7 @@
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, styled } from '@mui/material/styles';
+import { taskProp } from '../lib/todoData';
 
 // this component holds a Trello column, in our case
 // it will be either TODO , IN-PROGRESS, or DONE columns
@@ -8,20 +9,26 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 // task data will be passed as props to this component
 
 interface Props {
-  catagory: string;
+  category: string;
+  tasks: taskProp[] | undefined;
 }
 // const darkTheme = createTheme({ palette: { mode: 'dark' } });
 // const lightTheme = createTheme({ palette: { mode: 'light' } });
 
+//design for task item
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  textAlign: 'center',
+  textAlign: 'left',
+  paddingLeft: 8,
   color: theme.palette.text.secondary,
-  height: 60,
-  lineHeight: '60px',
+  height: 40,
+  lineHeight: '40px',
 }));
 
-const TaskBoard: React.FC<Props> = ({ catagory }) => {
+const TaskBoard: React.FC<Props> = ({ category, tasks }) => {
+  //filtering out relevant tasks for this Board
+  const relevantTasks = tasks?.filter((task) => task.category === category);
+
   return (
     <Box
       sx={{
@@ -32,12 +39,13 @@ const TaskBoard: React.FC<Props> = ({ catagory }) => {
         gridTemplateColumns: { md: '1fr' },
         gap: 2,
       }}>
-      {catagory}
-      {[0, 1, 2].map((elevation) => (
-        <Item key={elevation} elevation={8}>
-          {`to do task`}
-        </Item>
-      ))}
+      {category}
+      {tasks &&
+        relevantTasks?.map((task, i) => (
+          <Item key={i} elevation={8}>
+            {task.title}
+          </Item>
+        ))}
     </Box>
   );
 };

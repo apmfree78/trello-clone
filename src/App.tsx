@@ -28,14 +28,15 @@ const App: React.FC = () => {
         justifyContent='center'
         alignItems='flex-start'
         spacing={2}>
+        {/* Creating Grid with 3 main Trello Boards */}
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard catagory='TO DO' />
+          <TaskBoard tasks={taskItems} category='TO DO' />
         </Grid>
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard catagory='IN PROGRESS' />
+          <TaskBoard tasks={taskItems} category='IN PROGRESS' />
         </Grid>
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard catagory='DONE' />
+          <TaskBoard tasks={taskItems} category='DONE' />
         </Grid>
       </Grid>
     </Container>
