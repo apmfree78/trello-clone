@@ -20,6 +20,18 @@ const App: React.FC = () => {
     ...tasks,
   ]);
 
+  // adds a new task (card) provided by user form input
+  // this function will be passed as a prop to TaskBoard component
+  // it will then be called by handleClick function
+  const addTask = (task: taskProp): void => {
+    // validating that input was provided and taskItems
+    // is defined
+    if (taskItems === undefined) return;
+
+    //adding in new task
+    setTaskItems([...taskItems, task]);
+  };
+
   return (
     <Container sx={{ p: 2 }} maxWidth='lg'>
       <Grid
@@ -30,13 +42,17 @@ const App: React.FC = () => {
         spacing={2}>
         {/* Creating Grid with 3 main Trello Boards */}
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard tasks={taskItems} category='TO DO' />
+          <TaskBoard tasks={taskItems} addTask={addTask} category='TO DO' />
         </Grid>
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard tasks={taskItems} category='IN PROGRESS' />
+          <TaskBoard
+            tasks={taskItems}
+            addTask={addTask}
+            category='IN PROGRESS'
+          />
         </Grid>
         <Grid item xs={6} sm={4} md={3}>
-          <TaskBoard tasks={taskItems} category='DONE' />
+          <TaskBoard tasks={taskItems} addTask={addTask} category='DONE' />
         </Grid>
       </Grid>
     </Container>
