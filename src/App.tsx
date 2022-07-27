@@ -29,12 +29,13 @@ const App: React.FC = () => {
             <Box
               sx={{
                 p: 2,
-                bgcolor: 'background.default',
-                borderColor: 'black',
+                bgcolor: 'gray',
+                border: '1px',
                 display: 'grid',
                 gridTemplateColumns: { md: '1fr' },
                 gap: 2,
               }}>
+              To Do
               {[0, 1, 2].map((elevation) => (
                 <Item key={elevation} elevation={8}>
                   {`to do task`}
