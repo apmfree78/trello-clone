@@ -10,6 +10,8 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 interface Props {
   catagory: string;
 }
+// const darkTheme = createTheme({ palette: { mode: 'dark' } });
+// const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,10 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
   lineHeight: '60px',
 }));
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
-const lightTheme = createTheme({ palette: { mode: 'light' } });
-
-const TaskColumn: React.FC<Props> = ({ catagory }) => {
+const TaskBoard: React.FC<Props> = ({ catagory }) => {
   return (
     <Box
       sx={{
@@ -43,4 +42,4 @@ const TaskColumn: React.FC<Props> = ({ catagory }) => {
   );
 };
 
-export default TaskColumn;
+export default TaskBoard;

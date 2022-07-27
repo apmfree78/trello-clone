@@ -1,15 +1,15 @@
-interface taskProp {
+export interface taskProp {
   category: string;
-  text: string;
+  title: string;
   desp: string;
 }
 
 export const tasks: taskProp[] = [
-  { category: 'TODO', text: 'Yoga', desp: 'Go to Yoga' },
-  { category: 'TODO', text: 'Gym', desp: 'Go to Gym' },
-  { category: 'TODO', text: 'Read', desp: 'Read a Book' },
-  { category: 'IN-PROGRESS', text: 'Code', desp: 'Coding now' },
-  { category: 'IN-PROGRESS', text: 'Grocery', desp: 'At Grocery Store' },
-  { category: 'DONE', text: 'Dinner', desp: 'Made Dinner' },
-  { category: 'DONE', text: 'Vacuum', desp: 'Done Vacuuming' },
+  { category: 'TODO', title: 'Yoga', desp: 'Go to Yoga' },
+  { category: 'TODO', title: 'Gym', desp: 'Go to Gym' },
+  { category: 'TODO', title: 'Read', desp: 'Read a Book' },
+  { category: 'IN-PROGRESS', title: 'Code', desp: 'Coding now' },
+  { category: 'IN-PROGRESS', title: 'Grocery', desp: 'At Grocery Store' },
+  { category: 'DONE', title: 'Dinner', desp: 'Made Dinner' },
+  { category: 'DONE', title: 'Vacuum', desp: 'Done Vacuuming' },
 ];
