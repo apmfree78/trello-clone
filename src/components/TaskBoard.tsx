@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createTheme, styled } from '@mui/material/styles';
 import { taskProp } from '../lib/todoData';
-import { DragEvent, useState, ChangeEvent, useRef } from 'react';
+import { DragEvent, useState, ChangeEvent } from 'react';
 
 // interface for the position of a trello
 // card, specified by it's category:
@@ -38,6 +38,15 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   height: 40,
   lineHeight: '40px',
+}));
+
+const ItemHidden = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: 'left',
+  paddingLeft: 8,
+  backgroundColor: 'gray',
+  height: 20,
+  lineHeight: '20px',
 }));
 
 const TaskBoard: React.FC<Props> = ({
@@ -87,8 +96,8 @@ const TaskBoard: React.FC<Props> = ({
         gap: 2,
       }}>
       {category}
-      {tasks &&
-        relevantTasks?.map((task, i) => (
+      {relevantTasks?.length ? (
+        relevantTasks.map((task, i) => (
           <Item
             onDragEnter={() =>
               setDragPosition({ category, index: i }, 'current')
@@ -100,11 +109,19 @@ const TaskBoard: React.FC<Props> = ({
             draggable>
             {task.title}
           </Item>
-        ))}
+        ))
+      ) : (
+        <ItemHidden
+          onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}
+          onDragEnd={moveCard}
+          key={0}
+          elevation={8}
+          draggable></ItemHidden>
+      )}
       <TextField
         sx={{ bgcolor: 'white' }}
         id='card'
-        label='Enter title for this card...'
+        label='Enter title for new card...'
         multiline
         rows={2}
         value={input}

@@ -66,6 +66,8 @@ const App: React.FC = () => {
       dragCoordinates.current?.current === undefined
     )
       return;
+
+    // DEBUG OUTPUT *************
     const { category, index } = dragCoordinates.current?.start;
     console.log(`start category: ${category}, start index: ${index}`);
     const { category: currentCategory, index: currentIndex } =
