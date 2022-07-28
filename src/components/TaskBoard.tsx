@@ -4,7 +4,16 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createTheme, styled } from '@mui/material/styles';
 import { taskProp } from '../lib/todoData';
-import { useState, ChangeEvent } from 'react';
+import { DragEvent, useState, ChangeEvent, useRef } from 'react';
+
+// interface for the position of a trello
+// card, specified by it's category:
+// 'TO DO', 'IN PROGRESS', OR 'DONE'
+// and it index within that category
+interface Position {
+  category: string;
+  index: number;
+}
 
 // this component holds a Trello column, in our case
 // it will be either TODO , IN-PROGRESS, or DONE columns
@@ -15,6 +24,8 @@ interface Props {
   category: string;
   tasks: taskProp[] | undefined;
   addTask: (task: taskProp) => void;
+  setDragPosition: (position: Position, type: string) => void;
+  moveCard: (event: DragEvent) => void;
 }
 // const darkTheme = createTheme({ palette: { mode: 'dark' } });
 // const lightTheme = createTheme({ palette: { mode: 'light' } });
@@ -29,7 +40,13 @@ const Item = styled(Paper)(({ theme }) => ({
   lineHeight: '40px',
 }));
 
-const TaskBoard: React.FC<Props> = ({ category, tasks, addTask }) => {
+const TaskBoard: React.FC<Props> = ({
+  category,
+  tasks,
+  addTask,
+  setDragPosition,
+  moveCard,
+}) => {
   // input value when user creates new card
   const [input, setInput] = useState<string>('');
 
@@ -72,7 +89,15 @@ const TaskBoard: React.FC<Props> = ({ category, tasks, addTask }) => {
       {category}
       {tasks &&
         relevantTasks?.map((task, i) => (
-          <Item key={i} elevation={8}>
+          <Item
+            onDragEnter={() =>
+              setDragPosition({ category, index: i }, 'current')
+            }
+            onDragStart={() => setDragPosition({ category, index: i }, 'start')}
+            onDragEnd={moveCard}
+            key={i}
+            elevation={8}
+            draggable>
             {task.title}
           </Item>
         ))}
@@ -81,7 +106,7 @@ const TaskBoard: React.FC<Props> = ({ category, tasks, addTask }) => {
         id='card'
         label='Enter title for this card...'
         multiline
-        rows={3}
+        rows={2}
         value={input}
         onChange={handleChange}
       />
