@@ -1,15 +1,13 @@
 import Paper from '@mui/material/Paper';
-import { DragEvent, useState } from 'react';
+import { useState, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { taskProp, Position } from '../lib/interfaces';
+import { cardProp } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
 import CardModal from './CardModal';
+import { GlobalContext } from '../context/GlobalContext';
 
 interface Props {
   category: string;
-  tasks: taskProp[] | undefined;
-  setDragPosition: (position: Position, type: string) => void;
-  moveCard: (event: DragEvent) => void;
 }
 
 //design for main task item
@@ -35,14 +33,12 @@ const ItemHidden = styled(Paper)(({ theme }) => ({
 }));
 
 // display all cards for a given trello board (list)
-const Cards: React.FC<Props> = ({
-  category,
-  tasks,
-  setDragPosition,
-  moveCard,
-}) => {
+const Cards: React.FC<Props> = ({ category }) => {
   // set modal open / close state
   const [modelOpen, setModalOpen] = useState<boolean>(false);
+  // importing cards, setDragPosition which tracks movment of
+  // card when its dragged and , moveCard, which executes the move
+  const { cards, setDragPosition, moveCard } = useContext(GlobalContext);
   const [displayCardDetails, setDisplayCardDetails] = useState<number | null>(
     null
   );
@@ -59,8 +55,8 @@ const Cards: React.FC<Props> = ({
   };
 
   //filtering out relevant tasks for this Board by category
-  const relevantTasks: taskProp[] | undefined = tasks?.filter(
-    (task) => task.category === category
+  const relevantTasks: cardProp[] | undefined = cards?.filter(
+    (card: cardProp) => card.category === category
   );
 
   // check if board has any elements

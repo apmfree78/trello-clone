@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { taskProp, Position } from '../lib/interfaces';
-import { DragEvent, useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useContext } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import Cards from './Cards';
 
 // this component holds a Trello column, in our case
@@ -12,21 +12,14 @@ import Cards from './Cards';
 
 interface Props {
   category: string;
-  tasks: taskProp[] | undefined;
-  addTask: (task: taskProp) => void;
-  setDragPosition: (position: Position, type: string) => void;
-  moveCard: (event: DragEvent) => void;
 }
 // const darkTheme = createTheme({ palette: { mode: 'dark' } });
 // const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-const TaskBoard: React.FC<Props> = ({
-  category,
-  tasks,
-  addTask,
-  setDragPosition,
-  moveCard,
-}) => {
+const TaskBoard: React.FC<Props> = ({ category }) => {
+  // importing function to add a new Card to Board
+  // form Global Context
+  const { addCard } = useContext(GlobalContext);
   // input value when user creates new card
   const [input, setInput] = useState<string>('');
 
@@ -45,7 +38,7 @@ const TaskBoard: React.FC<Props> = ({
     // dispatching action to add new task
     // desp is blank, it's added optionally
     // later with modal pop up
-    addTask({ category, title: input, desp: '' });
+    addCard({ category, title: input, desp: '' });
 
     // clearing input
     setInput('');
@@ -62,12 +55,9 @@ const TaskBoard: React.FC<Props> = ({
         gap: 2,
       }}>
       {category}
-      <Cards
-        category={category}
-        tasks={tasks}
-        setDragPosition={setDragPosition}
-        moveCard={moveCard}
-      />
+      {/* Cards component map out all cards onto Board */}
+      <Cards category={category} />
+      {/* Input from to create new Card */}
       <TextField
         sx={{ bgcolor: 'white' }}
         id='card'

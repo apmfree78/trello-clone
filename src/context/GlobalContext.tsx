@@ -142,14 +142,27 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   if (!cards) {
     return (
       <GlobalContext.Provider
-        value={{ cardItems, addCard, moveCard, setDragPosition }}>
+        value={{
+          cardItems,
+          dragCoordinates,
+          addCard,
+          moveCard,
+          setDragPosition,
+        }}>
         {children}
       </GlobalContext.Provider>
     );
   } else {
     return (
       <GlobalContext.Provider
-        value={{ cards, addCard, moveCard, setDragPosition }}>
+        value={{
+          cards,
+          dragCoordinates,
+          setCards,
+          addCard,
+          moveCard,
+          setDragPosition,
+        }}>
         {children}
       </GlobalContext.Provider>
     );
