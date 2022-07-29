@@ -1,8 +1,9 @@
 import Paper from '@mui/material/Paper';
-import { DragEvent } from 'react';
+import { DragEvent, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { taskProp, Position } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
+import CardModal from './CardModal';
 
 interface Props {
   category: string;
@@ -40,6 +41,23 @@ const Cards: React.FC<Props> = ({
   setDragPosition,
   moveCard,
 }) => {
+  // set modal open / close state
+  const [modelOpen, setModalOpen] = useState<boolean>(false);
+  const [displayCardDetails, setDisplayCardDetails] = useState<number | null>(
+    null
+  );
+
+  // function to set state for card modal which
+  // allows user to edit card title and details
+  // also delete card
+  const showCardDetails = (cardIndex: number) => {
+    //set card to display
+    setDisplayCardDetails(cardIndex);
+
+    // open modal
+    setModalOpen(true);
+  };
+
   //filtering out relevant tasks for this Board by category
   const relevantTasks: taskProp[] | undefined = tasks?.filter(
     (task) => task.category === category
@@ -49,6 +67,17 @@ const Cards: React.FC<Props> = ({
   if (relevantTasks?.length) {
     return (
       <>
+        {/* display settings modal to change Reminder Settings  */}
+        {modelOpen && (
+          <CardModal
+            open={modelOpen}
+            setOpen={setModalOpen}
+            message={`Edit ${
+              relevantTasks[displayCardDetails || 0].title
+            } Card`}>
+            <h2>Testing</h2>
+          </CardModal>
+        )}
         {relevantTasks.map((task, i) => (
           <Item
             sx={{ display: 'flex', justifyContent: 'space-between' }}
@@ -62,7 +91,11 @@ const Cards: React.FC<Props> = ({
             draggable>
             {task.title}
             {/* pencil icon to show modal popup that allows user to edit and delete card */}
-            <EditIcon color='action' sx={{ fontSize: 17, p: 1 }} />
+            <EditIcon
+              onClick={() => showCardDetails(i)}
+              color='action'
+              sx={{ fontSize: 17, p: 1 }}
+            />
           </Item>
         ))}
       </>
