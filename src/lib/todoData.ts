@@ -1,9 +1,7 @@
-export interface taskProp {
-  category: string;
-  title: string;
-  desp: string;
-}
+import { taskProp } from './interfaces';
 
+// hold card sample data , for a full fledge app this
+// data would be pull via API to backend database
 export const tasks: taskProp[] = [
   { category: 'TO DO', title: 'Yoga', desp: 'Go to Yoga' },
   { category: 'TO DO', title: 'Gym', desp: 'Go to Gym' },

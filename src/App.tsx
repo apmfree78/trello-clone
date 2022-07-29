@@ -2,23 +2,9 @@ import { DragEvent, useRef, useState } from 'react';
 import { Grid, Container } from '@mui/material';
 import TaskBoard from './components/TaskBoard';
 // importing sample data
-import { tasks, taskProp } from './lib/todoData';
-
-// interface for the position of a trello
-// card, specified by it's category:
-// 'TO DO', 'IN PROGRESS', OR 'DONE'
-// and it index within that category
-interface Position {
-  category: string;
-  index: number;
-}
-
-// gives the start and current position of the card while
-// it's being dragged by the user
-interface DragVector {
-  start?: Position | undefined;
-  current?: Position | undefined;
-}
+import { tasks } from './lib/todoData';
+// import interfaces
+import { Position, DragVector, taskProp } from './lib/interfaces';
 
 const App: React.FC = () => {
   // managing state with useState

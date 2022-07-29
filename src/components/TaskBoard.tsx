@@ -3,17 +3,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createTheme, styled } from '@mui/material/styles';
-import { taskProp } from '../lib/todoData';
+import { taskProp, Position } from '../lib/interfaces';
 import { DragEvent, useState, ChangeEvent } from 'react';
-
-// interface for the position of a trello
-// card, specified by it's category:
-// 'TO DO', 'IN PROGRESS', OR 'DONE'
-// and it index within that category
-interface Position {
-  category: string;
-  index: number;
-}
+import Cards from './Cards';
 
 // this component holds a Trello column, in our case
 // it will be either TODO , IN-PROGRESS, or DONE columns
@@ -29,25 +21,6 @@ interface Props {
 }
 // const darkTheme = createTheme({ palette: { mode: 'dark' } });
 // const lightTheme = createTheme({ palette: { mode: 'light' } });
-
-//design for task item
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: 'left',
-  paddingLeft: 8,
-  color: theme.palette.text.secondary,
-  height: 40,
-  lineHeight: '40px',
-}));
-
-const ItemHidden = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: 'left',
-  paddingLeft: 8,
-  backgroundColor: 'gray',
-  height: 20,
-  lineHeight: '20px',
-}));
 
 const TaskBoard: React.FC<Props> = ({
   category,
@@ -80,11 +53,6 @@ const TaskBoard: React.FC<Props> = ({
     setInput('');
   };
 
-  //filtering out relevant tasks for this Board by category
-  const relevantTasks: taskProp[] | undefined = tasks?.filter(
-    (task) => task.category === category
-  );
-
   return (
     <Box
       sx={{
@@ -96,28 +64,12 @@ const TaskBoard: React.FC<Props> = ({
         gap: 2,
       }}>
       {category}
-      {relevantTasks?.length ? (
-        relevantTasks.map((task, i) => (
-          <Item
-            onDragEnter={() =>
-              setDragPosition({ category, index: i }, 'current')
-            }
-            onDragStart={() => setDragPosition({ category, index: i }, 'start')}
-            onDragEnd={moveCard}
-            key={i}
-            elevation={8}
-            draggable>
-            {task.title}
-          </Item>
-        ))
-      ) : (
-        <ItemHidden
-          onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}
-          onDragEnd={moveCard}
-          key={0}
-          elevation={8}
-          draggable></ItemHidden>
-      )}
+      <Cards
+        category={category}
+        tasks={tasks}
+        setDragPosition={setDragPosition}
+        moveCard={moveCard}
+      />
       <TextField
         sx={{ bgcolor: 'white' }}
         id='card'
