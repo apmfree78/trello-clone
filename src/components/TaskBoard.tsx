@@ -1,8 +1,6 @@
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { createTheme, styled } from '@mui/material/styles';
 import { taskProp, Position } from '../lib/interfaces';
 import { DragEvent, useState, ChangeEvent } from 'react';
 import Cards from './Cards';

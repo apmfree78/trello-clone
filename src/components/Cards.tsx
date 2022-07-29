@@ -1,5 +1,6 @@
 import Paper from '@mui/material/Paper';
 import { DragEvent } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
 import { taskProp, Position } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
 
@@ -50,6 +51,7 @@ const Cards: React.FC<Props> = ({
       <>
         {relevantTasks.map((task, i) => (
           <Item
+            sx={{ display: 'flex', justifyContent: 'space-between' }}
             onDragEnter={() =>
               setDragPosition({ category, index: i }, 'current')
             }
@@ -59,6 +61,8 @@ const Cards: React.FC<Props> = ({
             elevation={8}
             draggable>
             {task.title}
+            {/* pencil icon to show modal popup that allows user to edit and delete card */}
+            <EditIcon color='action' sx={{ fontSize: 17, p: 1 }} />
           </Item>
         ))}
       </>
