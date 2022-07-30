@@ -85,6 +85,26 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
 
     setCards([...otherBoards, ...currentBoard]); // set state
   };
+  const deleteCard = (category: string, index: number): void => {
+    //filtering out and extract board where card is located
+    const currentBoard: cardProp[] | undefined = cards?.filter(
+      (_card) => _card.category === category
+    );
+
+    // extracting other card Boards and combining with currentBoard
+    const otherBoards: cardProp[] | undefined = cards?.filter(
+      (_card) => _card.category !== category
+    );
+
+    //validating both arrays exist
+    if (otherBoards === undefined || currentBoard === undefined) return;
+
+    // deleting card from currentBoard @ index
+    currentBoard.splice(index, 1);
+
+    //*****************setting state ***************
+    setCards([...otherBoards, ...currentBoard]); // set state
+  };
 
   // after being dragged by user, drop card in its new position
   // this will require updating, based on new card location
@@ -167,6 +187,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         value={{
           cardItems,
           addCard,
+          deleteCard,
           editCard,
           moveCard,
           setDragPosition,
@@ -179,8 +200,8 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       <GlobalContext.Provider
         value={{
           cards,
-          setCards,
           addCard,
+          deleteCard,
           editCard,
           moveCard,
           setDragPosition,

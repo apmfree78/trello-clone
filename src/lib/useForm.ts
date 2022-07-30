@@ -9,12 +9,11 @@ export default function useForm(
   initial: inputProps = { title: '', description: '' }
 ) {
   const [inputs, setInputs] = useState(initial);
-  const initialValues = Object.values(initial).join('');
 
-  useEffect(() => {
+  /*  useEffect(() => {
     // this functions runs when things we are watching change
     setInputs(initial);
-  }, [initialValues]);
+  }, [initial]); */
 
   function handleChange(e: any): void {
     let { value, name, type } = e.target;

@@ -1,15 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-  Grid,
-} from '@mui/material';
+import { Button, TextField, Grid } from '@mui/material';
 import { useContext, FormEvent } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { GlobalContext } from '../context/GlobalContext';
@@ -18,11 +9,6 @@ import useForm from '../lib/useForm';
 interface Props {
   category: string;
   index: number;
-  title: string;
-  description: string;
-}
-
-interface inputProps {
   title: string;
   description: string;
 }

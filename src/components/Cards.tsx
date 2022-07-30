@@ -1,6 +1,7 @@
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import { cardProp } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
 import CardModal from './CardModal';
@@ -15,9 +16,11 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: 'left',
   paddingLeft: 8,
+  paddingTop: 8,
+  paddingBottom: 1,
   color: theme.palette.text.secondary,
-  height: 40,
-  lineHeight: '40px',
+  height: 'auto',
+  // lineHeight: '40px',
 }));
 
 // this item is present when there are no active
@@ -88,11 +91,18 @@ const Cards: React.FC<Props> = ({ category }) => {
             draggable>
             {task.title}
             {/* pencil icon to show modal popup that allows user to edit and delete card */}
-            <EditIcon
-              onClick={() => showCardDetails(i)}
-              color='action'
-              sx={{ fontSize: 17, p: 1 }}
-            />
+            <span>
+              <EditIcon
+                onClick={() => showCardDetails(i)}
+                color='action'
+                sx={{ fontSize: 17, paddingBottom: 1 }}
+              />
+              <CloseIcon
+                onClick={() => showCardDetails(i)}
+                color='action'
+                sx={{ fontSize: 17, paddingRight: 1, paddingBottom: 1 }}
+              />
+            </span>
           </Item>
         ))}
       </>
