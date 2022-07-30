@@ -1,10 +1,49 @@
-# Getting Started with Create React App
+# Productivity App - Trello clone build with React, TypeScript, and Material UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Add, edit, delete, and move cards with this trello clone.  Drag and drop feature
+makes it easy to drag a card to another list or reodering within the same list.
 
-## Available Scripts
+## `useContext`, `useState`, & `useRef` for State Management
 
-In the project directory, you can run:
+A global context is setup in (this file)[https://github.com/apmfree78/trello-clone/blob/master/src/context/GlobalContext.tsx]
+
+This context includes the state: object containing all cards and a ref
+containing coordinates (starting and ending) of a card that is being
+dragged by user. 
+
+The global context also includes all methods to add, edit, delete, and move
+cards (by dragging).
+
+This context is accessible from any component in App.
+
+This setup works well for scaling as it's now easy to transition to
+redux state management and/or apollo graphQL (if we decide to create anohter
+app that would function as API endpoint to a SQL or mongoDB database)
+
+## Material UI for design
+
+I used material UI for the design and layout of the application,
+as it's a modern and robust framework that is also optimized to
+work on different browsers, devices, and screen sizes.
+
+## Coding Best Practices
+
+Application is broken down ito 5 major Component, a global Context file (discuss above),
+and a lib folder containing seed data, interfaces, and `useForm` customhook.
+
+Code is eslint compliant, auto-formatted with prettier, and appropriately commented.
+
+A lot of thought was put into variable and component naming to make application easy to understand
+and follow.
+
+Sample data is preloaded onto app. 
+
+## Setup for continuous deployment on Netlify
+
+App is set to recompile and re-deploy on Netlify every time a new
+update is pushed to github from local repository
+
+To run app on your machine just git clone and ...
 
 ### `npm start`
 
@@ -14,34 +53,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# trello-clone
