@@ -17,8 +17,10 @@ cards (by dragging).
 This context is accessible from any component in App.
 
 This setup works well for scaling as it's now easy to transition to
-redux state management and/or apollo graphQL (if we decide to create anohter
-app that would function as API endpoint to a SQL or mongoDB database)
+redux state management and/or apollo graphQL (if we decide to create another
+app that would function as API endpoint to a SQL or mongoDB database).
+
+This would be next steps if goal was to eventually commercialize the app.
 
 ## Material UI for design
 
@@ -28,13 +30,13 @@ work on different browsers, devices, and screen sizes.
 
 ## Coding Best Practices
 
-Application is broken down ito 5 major Component, a global Context file (discuss above),
+Application is broken down ito 5 major Components, a global Context file (discuss above),
 and a lib folder containing seed data, interfaces, and `useForm` customhook.
 
-Code is eslint compliant, auto-formatted with prettier, and appropriately commented.
+*Code is eslint compliant, auto-formatted with prettier, and appropriately commented.*
 
-A lot of thought was put into variable and component naming to make application easy to understand
-and follow.
+**A lot of thought was put into variable and component naming to make application easy to understand
+and follow.**
 
 Sample data is preloaded onto app. 
 
