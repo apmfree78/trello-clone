@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
@@ -41,7 +42,8 @@ const Cards: React.FC<Props> = ({ category }) => {
   const [modelOpen, setModalOpen] = useState<boolean>(false);
   // importing cards, setDragPosition which tracks movment of
   // card when its dragged and , moveCard, which executes the move
-  const { cards, setDragPosition, moveCard } = useContext(GlobalContext);
+  const { cards, setDragPosition, moveCard, deleteCard } =
+    useContext(GlobalContext);
   const [currentCardIndex, setCurrentCardIndex] = useState<number | null>(null);
 
   // function to set state for card modal which
@@ -53,6 +55,14 @@ const Cards: React.FC<Props> = ({ category }) => {
 
     // open modal
     setModalOpen(true);
+  };
+
+  // dispatches deleting of card at index (of category)
+  // to deleteCard global context method
+  const handleDelete = (index: number) => {
+    if (confirm('Are you sure want to delete this card?')) {
+      deleteCard(category, index);
+    }
   };
 
   //filtering out relevant tasks for this Board by category
@@ -98,7 +108,7 @@ const Cards: React.FC<Props> = ({ category }) => {
                 sx={{ fontSize: 17, paddingBottom: 1 }}
               />
               <CloseIcon
-                onClick={() => showCardDetails(i)}
+                onClick={() => handleDelete(i)}
                 color='action'
                 sx={{ fontSize: 17, paddingRight: 1, paddingBottom: 1 }}
               />
@@ -116,7 +126,7 @@ const Cards: React.FC<Props> = ({ category }) => {
         key={0}
         elevation={8}
         draggable>
-        This list is empty and all alone!
+        This list is lonely!
       </ItemHidden>
     );
   }
