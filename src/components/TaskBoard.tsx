@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import { useState, ChangeEvent, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
@@ -23,7 +24,12 @@ const boardStyle = {
   display: 'grid',
   fontWeight: 'bold',
   gridTemplateColumns: { md: '1fr' },
-  gap: 2,
+  gap: 1.5,
+};
+
+const buttonFlex = {
+  display: 'Flex',
+  justifyContent: 'flex-start',
 };
 
 const TaskBoard: React.FC<Props> = ({ category }) => {
@@ -74,15 +80,28 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
             value={input}
             onChange={handleChange}
           />
-          <Button
-            sx={{ fontWeight: 'bold' }}
-            variant='contained'
-            onClick={handleClick}>
-            Add Card
-          </Button>
+          <Box sx={buttonFlex}>
+            <Button
+              sx={{ fontWeight: 'bold' }}
+              variant='contained'
+              onClick={handleClick}>
+              Add Card
+            </Button>
+            <CloseIcon
+              color='disabled'
+              sx={{ paddingLeft: 1, paddingTop: 0.6 }}
+              onClick={() => setShowForm(false)}
+            />
+          </Box>
         </>
       ) : (
-        <Button onClick={() => setShowForm(true)}>+ Add a card</Button>
+        <Box sx={buttonFlex}>
+          <Button
+            sx={{ fontSize: '16px', color: 'gray' }}
+            onClick={() => setShowForm(true)}>
+            + Add a card
+          </Button>
+        </Box>
       )}
     </Box>
   );
