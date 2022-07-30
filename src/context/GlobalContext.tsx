@@ -7,6 +7,21 @@ interface Props {
   children?: React.ReactNode;
 }
 
+/*
+  THIS FILE CONTAINS THE GLOBAL STATE OF APPLICATION, INCLUDING
+  BOTH DATA (VIA USESTATE AND USEREF) THAT IS AN OBJECT CONTAINING
+  ALL USER CARDS.  THESE CARDS ARE LOADED FROM /LIB/TODODATA.TS
+
+  ALL MAIN FUNCTION THAT MUTATE THE STATE ARE INCLUDED IN THIS FILE,
+  INCLUDING: addCard, editCard, deleteCard, and moveCard
+
+  setDragPosition tracks the current position of a card that is
+  being tragged and saved it into a ref called dragCoordinates
+
+  moveCard uses dragCoordinates to move the card from it's initial
+  location to final location
+*/
+
 export const GlobalContext: React.Context<any> = createContext('');
 
 export const GlobalProvider: React.FC<Props> = ({ children }) => {
@@ -63,6 +78,9 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
     setCards([...cards, card]);
   };
 
+  // edits a card title and/or description based on what
+  // the user submitted in CardEditForm (via CardModal)
+  // state is updated too and re-rendered to show updates
   const editCard = (card: cardProp, index: number): void => {
     //filtering out and extract board where card is located
     const currentBoard: cardProp[] | undefined = cards?.filter(
@@ -85,6 +103,10 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
 
     setCards([...otherBoards, ...currentBoard]); // set state
   };
+
+  // deletes card - this method is dispatch when user clicks
+  // the X button in card and on the alert confirms they want
+  // to delete the card
   const deleteCard = (category: string, index: number): void => {
     //filtering out and extract board where card is located
     const currentBoard: cardProp[] | undefined = cards?.filter(
@@ -181,6 +203,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  // RETURNING GLOBAL CONTEXT
   if (!cards) {
     return (
       <GlobalContext.Provider

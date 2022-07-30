@@ -12,6 +12,17 @@ const headlineStyle = {
   textShadow: '',
 };
 
+// FOR DETAILS ON STATE MANAGEMENT
+// please refer to './context/GlobalContext'
+// this file contains the Global Context
+// which is accessible to all components
+// It includes the global state and
+// all methods to mutate the state
+// including: CRUD and moving cards
+
+// App MAIN Component that renders out 3 hard coded
+// trello boards (TaskBoard Component):
+// 'TO DO' , 'IN PROGRESS' , and 'DONE'
 const App: React.FC = () => {
   return (
     <Container sx={{ p: 2 }} maxWidth='xl'>

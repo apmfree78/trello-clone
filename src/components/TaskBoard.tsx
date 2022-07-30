@@ -32,6 +32,10 @@ const buttonFlex = {
   justifyContent: 'flex-start',
 };
 
+// This component represents the list or board,
+// either 'TO DO' , 'IN PROGRESS' OR 'DONE'
+// it will call Card component to list all of its
+// cards and display a form to add a card
 const TaskBoard: React.FC<Props> = ({ category }) => {
   // importing function to add a new Card to Board
   // form Global Context
@@ -65,9 +69,16 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   return (
     <Box sx={boardStyle}>
       {category}
-      {/* Cards component map out all cards onto Board */}
+      {/* ***************************************************************** */}
+      {/* ***************************************************************** */}
+      {/* Cards component map through, and prints all cards onto Board */}
       <Cards category={category} />
-      {/* Input from to create new Card */}
+      {/* ***************************************************************** */}
+      {/* ***************************************************************** */}
+      {/* ***************************************************************** */}
+      {/* Input from to create new Card 
+      only displays when user click '+ Add a card'
+      which sets showForm === true */}
       {showForm ? (
         <>
           <TextField
@@ -87,6 +98,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
               onClick={handleClick}>
               Add Card
             </Button>
+            {/* click this below close icon to close add card form */}
             <CloseIcon
               color='disabled'
               sx={{ paddingLeft: 1, paddingTop: 0.6 }}
@@ -95,6 +107,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
           </Box>
         </>
       ) : (
+        // Click this button to reveal add card form
         <Box sx={buttonFlex}>
           <Button
             sx={{ fontSize: '16px', color: 'gray' }}

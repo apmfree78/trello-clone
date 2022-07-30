@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Grid, IconButton } from '@mui/material';
 import CancelPresentationOutlinedIcon from '@mui/icons-material/CancelPresentationOutlined';
-// import React, { cloneElement } from 'react';
 
+// style for modal
 const style = {
   position: 'absolute',
   top: '30%',
@@ -26,7 +26,9 @@ interface Props {
   message: string;
   children?: React.ReactNode;
 }
-
+// Material UI pop up modal that appears above screen when user clicks
+// pencil icon next to a card. It will display (in this app) a short
+// form to edit card
 const CardModal: React.FC<Props> = ({ open, setOpen, message, children }) => {
   const handleClose = (event: MouseEvent): void => {
     setOpen(false);
@@ -36,8 +38,8 @@ const CardModal: React.FC<Props> = ({ open, setOpen, message, children }) => {
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby='create or update reminder'
-      aria-describedby='modal popup to create or update reminder'>
+      aria-labelledby='update card'
+      aria-describedby='modal popup to edit card'>
       <Box sx={style}>
         <Grid container justifyContent='flex-end' alignItems='flex-start'>
           <IconButton onClick={() => setOpen(false)}>

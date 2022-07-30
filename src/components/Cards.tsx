@@ -40,11 +40,14 @@ const ItemHidden = styled(Paper)(({ theme }) => ({
 
 // display all cards for a given trello board (list)
 const Cards: React.FC<Props> = ({ category }) => {
-  // set modal open / close state
+  // set modal open / close state, if true, modal popup will show
+  // if false modal popup will remain hidden
   const [modelOpen, setModalOpen] = useState<boolean>(false);
 
+  // IMPORT FROM GLOBAL CONTEXT
   // importing cards, setDragPosition which tracks movment of
-  // card when its dragged and , moveCard, which executes the move
+  // card when its dragged , moveCard, which executes the move,
+  // deleteCard which delete the card
   const { cards, setDragPosition, moveCard, deleteCard } =
     useContext(GlobalContext);
 
@@ -71,15 +74,15 @@ const Cards: React.FC<Props> = ({ category }) => {
   };
 
   //filtering out relevant tasks for this Board by category
-  const relevantTasks: cardProp[] | undefined = cards?.filter(
+  const relevantCards: cardProp[] | undefined = cards?.filter(
     (card: cardProp) => card.category === category
   );
 
   // check if board has any elements
-  if (relevantTasks?.length) {
+  if (relevantCards?.length) {
     return (
       <>
-        {/* display modal popup to edit card  */}
+        {/* display modal popup to edit card if modalOpen === true  */}
         {modelOpen && (
           <CardModal
             open={modelOpen}
@@ -88,19 +91,20 @@ const Cards: React.FC<Props> = ({ category }) => {
             <CardEditForm
               category={category}
               index={currentCardIndex || 0}
-              title={relevantTasks[currentCardIndex || 0].title}
-              description={relevantTasks[currentCardIndex || 0].desp}
+              title={relevantCards[currentCardIndex || 0].title}
+              description={relevantCards[currentCardIndex || 0].desp}
             />
           </CardModal>
         )}
-        {/* show all cards for this category */}
-        {relevantTasks.map((task, i) => (
+        {/* show all cards for this category by mapping through revelantCards */}
+        {relevantCards.map((task, i) => (
           <Item
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               color: 'black',
             }}
+            // tracking the dragging of the card and if another card is being dragged above it
             onDragEnter={() =>
               setDragPosition({ category, index: i }, 'current')
             }
@@ -117,6 +121,7 @@ const Cards: React.FC<Props> = ({ category }) => {
                 color='action'
                 sx={{ fontSize: 17, paddingBottom: 1 }}
               />
+              {/* user can click this X icon to delete a card */}
               <CloseIcon
                 onClick={() => handleDelete(i)}
                 color='action'
@@ -136,7 +141,7 @@ const Cards: React.FC<Props> = ({ category }) => {
         key={0}
         elevation={8}
         draggable>
-        This list is lonely!
+        This list is lonely! 😔
       </ItemHidden>
     );
   }
