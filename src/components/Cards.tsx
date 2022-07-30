@@ -39,16 +39,14 @@ const Cards: React.FC<Props> = ({ category }) => {
   // importing cards, setDragPosition which tracks movment of
   // card when its dragged and , moveCard, which executes the move
   const { cards, setDragPosition, moveCard } = useContext(GlobalContext);
-  const [displayCardDetails, setDisplayCardDetails] = useState<number | null>(
-    null
-  );
+  const [currentCardIndex, setCurrentCardIndex] = useState<number | null>(null);
 
   // function to set state for card modal which
   // allows user to edit card title and details
   // also delete card
-  const showCardDetails = (cardIndex: number) => {
+  const showCardDetails = (index: number) => {
     //set card to display
-    setDisplayCardDetails(cardIndex);
+    setCurrentCardIndex(index);
 
     // open modal
     setModalOpen(true);
@@ -68,14 +66,12 @@ const Cards: React.FC<Props> = ({ category }) => {
           <CardModal
             open={modelOpen}
             setOpen={setModalOpen}
-            message={`Edit ${
-              relevantTasks[displayCardDetails || 0].title
-            } Card`}>
+            message={`Edit ${relevantTasks[currentCardIndex || 0].title} Card`}>
             <CardEditForm
               category={category}
-              index={displayCardDetails || 0}
-              title={relevantTasks[displayCardDetails || 0].title}
-              description={relevantTasks[displayCardDetails || 0].desp}
+              index={currentCardIndex || 0}
+              title={relevantTasks[currentCardIndex || 0].title}
+              description={relevantTasks[currentCardIndex || 0].desp}
             />
           </CardModal>
         )}

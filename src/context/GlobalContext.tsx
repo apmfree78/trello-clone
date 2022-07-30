@@ -26,18 +26,6 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   // of a card while it's being dragged
   const dragCoordinates = useRef<DragVector | null>(null);
 
-  // adds a new card (card) provided by user form input
-  // this function will be passed as a prop to cardBoard component
-  // it will then be called by handleClick function
-  const addCard = (card: cardProp): void => {
-    // validating that input was provided and cards
-    // is defined
-    if (cards === undefined) return;
-
-    //adding in new card
-    setCards([...cards, card]);
-  };
-
   // track index and category of card while it's being dragged
   // type can be either "start" or "current", indicating
   // what Drag cooridinate is being updated
@@ -62,6 +50,40 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
     console.log(
       `current category: ${currentCategory}, current index: ${currentIndex}`
     );
+  };
+  // adds a new card (card) provided by user form input
+  // this function will be passed as a prop to cardBoard component
+  // it will then be called by handleClick function
+  const addCard = (card: cardProp): void => {
+    // validating that input was provided and cards
+    // is defined
+    if (cards === undefined) return;
+
+    //adding in new card
+    setCards([...cards, card]);
+  };
+
+  const editCard = (card: cardProp, index: number): void => {
+    //filtering out and extract board where card is located
+    const currentBoard: cardProp[] | undefined = cards?.filter(
+      (_card) => _card.category === card.category
+    );
+
+    // extracting other card Boards and combining with currentBoard
+    const otherBoards: cardProp[] | undefined = cards?.filter(
+      (_card) => _card.category !== card.category
+    );
+
+    //validationg both arrays exist
+    if (otherBoards === undefined || currentBoard === undefined) return;
+
+    //updating card
+    currentBoard[index].title = card.title;
+    currentBoard[index].desp = card.desp;
+
+    //*****************setting state ***************
+
+    setCards([...otherBoards, ...currentBoard]); // set state
   };
 
   // after being dragged by user, drop card in its new position
@@ -145,6 +167,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         value={{
           cardItems,
           addCard,
+          editCard,
           moveCard,
           setDragPosition,
         }}>
@@ -158,6 +181,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           cards,
           setCards,
           addCard,
+          editCard,
           moveCard,
           setDragPosition,
         }}>

@@ -38,7 +38,7 @@ const CardEditForm: React.FC<Props> = ({
   title,
   description,
 }) => {
-  const { addCard } = useContext(GlobalContext);
+  const { editCard } = useContext(GlobalContext);
   // create state for form input and handling
   // using custom hook useFomr
   const { inputs, handleChange } = useForm({ title, description });
@@ -46,6 +46,11 @@ const CardEditForm: React.FC<Props> = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log(`title: ${inputs.title}, description: ${inputs.description}`);
+    // dispatching changes to form
+    editCard(
+      { category, title: inputs.title, desp: inputs.description },
+      index
+    );
   };
 
   // input form to update Card,
