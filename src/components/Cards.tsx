@@ -5,7 +5,7 @@ import { cardProp } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
 import CardModal from './CardModal';
 import { GlobalContext } from '../context/GlobalContext';
-
+import CardEditForm from './CardEditForm';
 interface Props {
   category: string;
 }
@@ -71,7 +71,12 @@ const Cards: React.FC<Props> = ({ category }) => {
             message={`Edit ${
               relevantTasks[displayCardDetails || 0].title
             } Card`}>
-            <h2>Testing</h2>
+            <CardEditForm
+              category={category}
+              index={displayCardDetails || 0}
+              title={relevantTasks[displayCardDetails || 0].title}
+              description={relevantTasks[displayCardDetails || 0].desp}
+            />
           </CardModal>
         )}
         {relevantTasks.map((task, i) => (

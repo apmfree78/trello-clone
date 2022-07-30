@@ -144,7 +144,6 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       <GlobalContext.Provider
         value={{
           cardItems,
-          dragCoordinates,
           addCard,
           moveCard,
           setDragPosition,
@@ -157,7 +156,6 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       <GlobalContext.Provider
         value={{
           cards,
-          dragCoordinates,
           setCards,
           addCard,
           moveCard,
