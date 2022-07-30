@@ -74,12 +74,12 @@ const Cards: React.FC<Props> = ({ category }) => {
   if (relevantTasks?.length) {
     return (
       <>
-        {/* display settings modal to change Reminder Settings  */}
+        {/* display modal popup to edit card  */}
         {modelOpen && (
           <CardModal
             open={modelOpen}
             setOpen={setModalOpen}
-            message={`Edit ${relevantTasks[currentCardIndex || 0].title} Card`}>
+            message={`Edit Card`}>
             <CardEditForm
               category={category}
               index={currentCardIndex || 0}
@@ -88,9 +88,14 @@ const Cards: React.FC<Props> = ({ category }) => {
             />
           </CardModal>
         )}
+        {/* show all cards for this category */}
         {relevantTasks.map((task, i) => (
           <Item
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              color: 'black',
+            }}
             onDragEnter={() =>
               setDragPosition({ category, index: i }, 'current')
             }

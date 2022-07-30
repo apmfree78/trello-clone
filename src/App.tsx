@@ -11,13 +11,13 @@ const App: React.FC = () => {
         alignItems='flex-start'
         spacing={2}>
         {/* Creating Grid with 3 main Trello Boards */}
-        <Grid item xs={6} sm={4} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <TaskBoard category='TO DO' />
         </Grid>
-        <Grid item xs={6} sm={4} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <TaskBoard category='IN PROGRESS' />
         </Grid>
-        <Grid item xs={6} sm={4} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <TaskBoard category='DONE' />
         </Grid>
       </Grid>

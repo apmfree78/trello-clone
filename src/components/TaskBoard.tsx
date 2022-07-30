@@ -13,8 +13,18 @@ import Cards from './Cards';
 interface Props {
   category: string;
 }
-// const darkTheme = createTheme({ palette: { mode: 'dark' } });
-// const lightTheme = createTheme({ palette: { mode: 'light' } });
+
+// css grid for trello board
+const boardStyle = {
+  p: 2,
+  bgcolor: '#EBECF0',
+  border: '1px',
+  borderRadius: '2px',
+  display: 'grid',
+  fontWeight: 'bold',
+  gridTemplateColumns: { md: '1fr' },
+  gap: 2,
+};
 
 const TaskBoard: React.FC<Props> = ({ category }) => {
   // importing function to add a new Card to Board
@@ -22,6 +32,8 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   const { addCard } = useContext(GlobalContext);
   // input value when user creates new card
   const [input, setInput] = useState<string>('');
+  // click '+ Add a Card' to show add card input form
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   // updating state with user input for new card
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,31 +57,33 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   };
 
   return (
-    <Box
-      sx={{
-        p: 2,
-        bgcolor: 'gray',
-        border: '1px',
-        display: 'grid',
-        gridTemplateColumns: { md: '1fr' },
-        gap: 2,
-      }}>
+    <Box sx={boardStyle}>
       {category}
       {/* Cards component map out all cards onto Board */}
       <Cards category={category} />
       {/* Input from to create new Card */}
-      <TextField
-        sx={{ bgcolor: 'white' }}
-        id='card'
-        label='Enter title for new card...'
-        multiline
-        rows={2}
-        value={input}
-        onChange={handleChange}
-      />
-      <Button variant='contained' onClick={handleClick}>
-        Add card
-      </Button>
+      {showForm ? (
+        <>
+          <TextField
+            required
+            sx={{ bgcolor: 'white' }}
+            id='card'
+            label='Enter title for new card...'
+            multiline
+            rows={2}
+            value={input}
+            onChange={handleChange}
+          />
+          <Button
+            sx={{ fontWeight: 'bold' }}
+            variant='contained'
+            onClick={handleClick}>
+            Add Card
+          </Button>
+        </>
+      ) : (
+        <Button onClick={() => setShowForm(true)}>+ Add a card</Button>
+      )}
     </Box>
   );
 };
