@@ -1,11 +1,23 @@
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, Typography } from '@mui/material';
 import TaskBoard from './components/TaskBoard';
 
+//set styles
 const gridStyle = { minWidth: '250px' };
+const headlineStyle = {
+  p: 5,
+  fontStyle: 'italic',
+  fontWeight: 'bold',
+  color: 'white',
+  textAlign: 'center',
+  textShadow: '',
+};
 
 const App: React.FC = () => {
   return (
     <Container sx={{ p: 2 }} maxWidth='xl'>
+      <Typography sx={headlineStyle} variant='h2'>
+        Productivity App
+      </Typography>
       <Grid
         container
         direction='row'

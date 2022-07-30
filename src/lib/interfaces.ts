@@ -15,13 +15,6 @@ export interface DragVector {
 }
 
 // information held by specific card or task
-export interface taskProp {
-  category: string;
-  title: string;
-  desp: string;
-}
-
-// information held by specific card or task
 export interface cardProp {
   category: string;
   title: string;

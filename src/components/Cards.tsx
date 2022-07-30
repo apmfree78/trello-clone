@@ -12,7 +12,7 @@ interface Props {
   category: string;
 }
 
-//design for main task item
+//design for each card element
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: 'left',
@@ -21,10 +21,12 @@ const Item = styled(Paper)(({ theme }) => ({
   paddingBottom: 1,
   color: theme.palette.text.secondary,
   height: 'auto',
-  // lineHeight: '40px',
+  '&:active': {
+    backgroundColor: '#77be77',
+  },
 }));
 
-// this item is present when there are no active
+// ItemHidden is present when there are no active
 // cards are board, this allows user to drag new
 // cards to this board
 const ItemHidden = styled(Paper)(({ theme }) => ({
@@ -40,10 +42,13 @@ const ItemHidden = styled(Paper)(({ theme }) => ({
 const Cards: React.FC<Props> = ({ category }) => {
   // set modal open / close state
   const [modelOpen, setModalOpen] = useState<boolean>(false);
+
   // importing cards, setDragPosition which tracks movment of
   // card when its dragged and , moveCard, which executes the move
   const { cards, setDragPosition, moveCard, deleteCard } =
     useContext(GlobalContext);
+
+  // getting current card index, need this for Card Modal
   const [currentCardIndex, setCurrentCardIndex] = useState<number | null>(null);
 
   // function to set state for card modal which
@@ -123,7 +128,7 @@ const Cards: React.FC<Props> = ({ category }) => {
       </>
     );
   } else {
-    //return hidden element
+    //return default hidden element that allows user to drag card to empty board
     return (
       <ItemHidden
         onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}

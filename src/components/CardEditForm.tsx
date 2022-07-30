@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-/* eslint-disable react/prop-types */
 import { Button, TextField, Grid } from '@mui/material';
 import { useContext, FormEvent } from 'react';
 import SendIcon from '@mui/icons-material/Send';
@@ -13,11 +12,9 @@ interface Props {
   description: string;
 }
 
-// show form to add or Edit Reminder
-// MUST pass closeForm prop, which is a function that is
-// execute to close whatever popup this form shows up in
-// right now it's setup to accept 'closeFrom' from ModalTemplate
-// located in /lib/ModalTemplate.js
+// load Edit an individual card
+// this form shows up in CardModal
+// when user clicks pencil icon
 const CardEditForm: React.FC<Props> = ({
   category,
   index,
@@ -29,10 +26,12 @@ const CardEditForm: React.FC<Props> = ({
   // using custom hook useFomr
   const { inputs, handleChange } = useForm({ title, description });
 
-  const handleSubmit = (event: FormEvent) => {
+  //capture edits to card and dispatch to editCard
+  const handleSubmit = (event: FormEvent): void => {
     event.preventDefault();
-    console.log(`title: ${inputs.title}, description: ${inputs.description}`);
-    // dispatching changes to form
+
+    // dispatching form changes to editCard that will update
+    // global state and rerender DOM with updates
     editCard(
       { category, title: inputs.title, desp: inputs.description },
       index
@@ -40,10 +39,9 @@ const CardEditForm: React.FC<Props> = ({
   };
 
   // input form to update Card,
-  // will take : title (label), descript,
+  // will take : title , description,
   return (
     <form onSubmit={handleSubmit}>
-      {/* use fieldset to disable form when graphQL mutation is executing */}
       <Grid container justifyContent='center' alignItems='center'>
         <TextField
           required
@@ -70,7 +68,7 @@ const CardEditForm: React.FC<Props> = ({
           value={inputs.description}
           onChange={handleChange}
         />
-        {/* button click triggers graphQL mutation to create new Reminder and update cache */}
+        {/* button click dispatches card changes to editCard method obtained from GlobalContext */}
         <Button
           type='submit'
           size='large'
