@@ -5,7 +5,7 @@ makes it easy to drag a card to another list or reodering within the same list.
 
 ## `useContext`, `useState`, & `useRef` for State Management
 
-A global context is setup in !(this file)[https://github.com/apmfree78/trello-clone/blob/master/src/context/GlobalContext.tsx]
+A global context is setup in [this file](https://github.com/apmfree78/trello-clone/blob/master/src/context/GlobalContext.tsx)
 
 This context includes the state: object containing all cards and a ref
 containing coordinates (starting and ending) of a card that is being
