@@ -220,7 +220,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   // SAVE TO LOCAL STORAGE
   // when card state is updated saving cards to localStorage
   useEffect(() => {
-    console.log('saving cards to local storage');
+    // console.log('saving cards to local storage');
     // console.log(`cards:${JSON.stringify(cards)}`);
     localStorage.setItem('cards', JSON.stringify(cards));
   }, [cards]);
