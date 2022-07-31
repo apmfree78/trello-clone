@@ -40,6 +40,13 @@ and follow.**
 
 Sample data is preloaded onto app. 
 
+## `localStorage` for data persistence 
+
+To make this app usable card data must persist between sessions. I setup
+`localStorage` to make this happen. If you update, add, delete, or move
+cards and hard refresh or come back to the site later (on the same browser)
+than your changes will still be there!
+
 ## Setup for continuous deployment on Netlify
 
 App is set to recompile and re-deploy on Netlify every time a new
