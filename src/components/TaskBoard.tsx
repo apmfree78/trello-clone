@@ -110,7 +110,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
         // Click this button to reveal add card form
         <Box sx={buttonFlex}>
           <Button
-            sx={{ fontSize: '16px', color: 'gray' }}
+            sx={{ fontSize: '1rem', color: 'gray' }}
             onClick={() => setShowForm(true)}>
             + Add a card
           </Button>

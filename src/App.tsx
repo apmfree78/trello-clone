@@ -2,7 +2,7 @@ import { Grid, Container, Typography } from '@mui/material';
 import TaskBoard from './components/TaskBoard';
 
 //set styles
-const gridStyle = { minWidth: '250px' };
+const gridStyle = { minWidth: '16em' };
 const headlineStyle = {
   p: 5,
   fontStyle: 'italic',

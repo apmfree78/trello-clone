@@ -35,7 +35,7 @@ const ItemHidden = styled(Paper)(({ theme }) => ({
   paddingLeft: 8,
   backgroundColor: 'gray',
   height: 20,
-  lineHeight: '20px',
+  lineHeight: '1.25em',
 }));
 
 // display all cards for a given trello board (list)
@@ -73,7 +73,7 @@ const Cards: React.FC<Props> = ({ category }) => {
     }
   };
 
-  //filtering out relevant tasks for this Board by category
+  //filtering out relevant cards for this Board by category
   const relevantCards: cardProp[] | undefined = cards?.filter(
     (card: cardProp) => card.category === category
   );
@@ -99,7 +99,7 @@ const Cards: React.FC<Props> = ({ category }) => {
           </CardModal>
         )}
         {/* show all cards for this category by mapping through revelantCards */}
-        {relevantCards.map((task, i) => (
+        {relevantCards.map((card, i) => (
           <Item
             sx={{
               display: 'flex',
@@ -115,7 +115,7 @@ const Cards: React.FC<Props> = ({ category }) => {
             key={i}
             elevation={8}
             draggable>
-            {task.title}
+            {card.title}
             {/* pencil icon to show modal popup that allows user to edit and delete card */}
             <span>
               <EditIcon
