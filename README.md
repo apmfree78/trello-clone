@@ -52,9 +52,9 @@ than your changes will still be there!
 App is set to recompile and re-deploy on Netlify every time a new
 update is pushed to github from local repository
 
-To run app on your machine just git clone and ...
+To run app on your machine just git clone the repository and ...
 
-### `npm start`
+### `npm install` then `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
