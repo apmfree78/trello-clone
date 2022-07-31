@@ -1,4 +1,10 @@
-import React, { createContext, DragEvent, useState, useRef } from 'react';
+import React, {
+  createContext,
+  DragEvent,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import { Position, DragVector, cardProp } from '../lib/interfaces';
 // importing sample data
 import { cardItems } from '../lib/todoData';
@@ -36,7 +42,15 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
  */
   // category is the name of the cardBoard the item will go on
   // title is the title of the card and desp is the description
-  const [cards, setCards] = useState<cardProp[] | undefined>([...cardItems]);
+
+  //checking to see if card data is stored in localStorage
+  const savedCards: string | null = localStorage.getItem('cards');
+  const hasLocalStorage: boolean = savedCards !== null;
+
+  // DEFINING MAIN CARD STATE
+  const [cards, setCards] = useState<cardProp[] | undefined>(
+    hasLocalStorage ? JSON.parse(savedCards || '') : [...cardItems]
+  );
   // setting up useRef to starting and current position
   // of a card while it's being dragged
   const dragCoordinates = useRef<DragVector | null>(null);
@@ -202,6 +216,14 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       setCards([...otherBoards, ...startBoard, ...finalBoard]); // set state
     }
   };
+
+  // SAVE TO LOCAL STORAGE
+  // when card state is updated saving cards to localStorage
+  useEffect(() => {
+    console.log('saving cards to local storage');
+    // console.log(`cards:${JSON.stringify(cards)}`);
+    localStorage.setItem('cards', JSON.stringify(cards));
+  }, [cards]);
 
   // RETURNING GLOBAL CONTEXT
   if (!cards) {

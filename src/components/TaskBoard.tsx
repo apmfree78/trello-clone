@@ -26,7 +26,7 @@ const boardStyle = {
   gridTemplateColumns: { md: '1fr' },
   gap: 1.5,
 };
-
+// aligment for buttons
 const buttonFlex = {
   display: 'Flex',
   justifyContent: 'flex-start',

@@ -88,6 +88,8 @@ const Cards: React.FC<Props> = ({ category }) => {
             open={modelOpen}
             setOpen={setModalOpen}
             message={`Edit Card`}>
+            {/* CardEditForm is passed a child to CardModal and then
+              displayed in the Modal */}
             <CardEditForm
               category={category}
               index={currentCardIndex || 0}
