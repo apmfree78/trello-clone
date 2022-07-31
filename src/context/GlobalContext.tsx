@@ -71,14 +71,14 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
     )
       return;
 
-    // DEBUG OUTPUT *************
+    /*    // DEBUG OUTPUT *************
     const { category, index } = dragCoordinates.current?.start;
     console.log(`start category: ${category}, start index: ${index}`);
     const { category: currentCategory, index: currentIndex } =
       dragCoordinates.current?.current;
     console.log(
       `current category: ${currentCategory}, current index: ${currentIndex}`
-    );
+    ); */
   };
   // adds a new card (card) provided by user form input
   // this function will be passed as a prop to cardBoard component
