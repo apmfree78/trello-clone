@@ -38,7 +38,6 @@ export const cardSlice = createSlice({
   initialState,
   reducers: {
     add: {
-
       reducer(state, action: PayloadAction<CardState>) {
         state.push(action.payload);
       },
@@ -63,6 +62,16 @@ export const cardSlice = createSlice({
         //updating card values
         cardToEdit.title = title;
         cardToEdit.desp = desp;
+      }
+    },
+    delete: (state, action: PayloadAction<string>) => {
+      // extracting location of card in state array by using 
+      // action.payload , whihc is just card id 
+      const index = state.findIndex(card => card.id === action.payload);
+
+      if (index) {
+        //deleting card at index 
+        state.slice(index, 1);
       }
     }
   }
