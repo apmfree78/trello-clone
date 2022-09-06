@@ -1,28 +1,7 @@
-import { useRef } from 'react';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 import { Position, DragVector } from '../lib/interfaces';
 
-// setting up useRef to starting and current position
-// of a card while it's being dragged
-const dragCoordinates = useRef<DragVector | null>(null);
-
-// track index and category of card while it's being dragged
-// type can be either "start" or "current", indicating
-// what Drag cooridinate is being updated
-const setDragPosition = (position: Position, type: string): void => {
-  if (type === 'current' || type === 'start') {
-    dragCoordinates.current = {
-      ...dragCoordinates?.current,
-      [type]: position,
-    };
-  }
-  if (
-    dragCoordinates.current?.start === undefined ||
-    dragCoordinates.current?.current === undefined
-  )
-    return;
-};
 // information held by specific card or task
 export interface CardState {
   id: string;
@@ -108,23 +87,21 @@ export const cardSlice = createSlice({
     // after being dragged by user, drop card in its new position
     // this will require updating, based on new card location
     // given in DragCoorindates
-    moveCard(state, action: PayloadAction<DragEvent>) {
-      action.payload.preventDefault();
-      action.payload.stopPropagation();
-      //validation checks, make sure useRef DragCoordinates is defined
-      // if undefined then exit
+    moveCard(state, action: PayloadAction<DragVector>) {
+      // action.payload represent coordinates of the starting
+    // and ending positions of the card that has been dragged
       if (
-        dragCoordinates.current?.start === undefined ||
-        dragCoordinates.current?.current === undefined
+        action.payload?.start === undefined ||
+        action.payload?.current === undefined
       )
         return;
 
       // now extracting starting position of card (when user first dragged)
       // and final position of card (when user dropped)
       const { category: startCategory, index: startIndex } =
-        dragCoordinates.current?.start;
+        action.payload?.start;
       const { category: finalCategory, index: finalIndex } =
-        dragCoordinates.current?.current;
+        action.payload?.current;
 
       // second validation if final and start position are same
       // then exit (as there no where for the card to move!)
