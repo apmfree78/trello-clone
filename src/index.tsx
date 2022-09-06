@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { GlobalProvider } from './context/GlobalContext';
+import store from './state/store'
+import { Provider } from 'react-redux';
 
 // FOR DETAILS ON STATE MANAGEMENT
 // please refer to './context/GlobalContext'
@@ -19,8 +21,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GlobalProvider>
-      <App />
-    </GlobalProvider>
+    <Provider store={store}>
+      <GlobalProvider>
+        <App />
+      </GlobalProvider>
+    </Provider>
   </React.StrictMode>
 );
