@@ -70,16 +70,8 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       dragCoordinates.current?.current === undefined
     )
       return;
-
-    /*    // DEBUG OUTPUT *************
-    const { category, index } = dragCoordinates.current?.start;
-    console.log(`start category: ${category}, start index: ${index}`);
-    const { category: currentCategory, index: currentIndex } =
-      dragCoordinates.current?.current;
-    console.log(
-      `current category: ${currentCategory}, current index: ${currentIndex}`
-    ); */
   };
+
   // adds a new card (card) provided by user form input
   // this function will be passed as a prop to cardBoard component
   // it will then be called by handleClick function
@@ -236,7 +228,8 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           editCard,
           moveCard,
           setDragPosition,
-        }}>
+        }}
+      >
         {children}
       </GlobalContext.Provider>
     );
@@ -250,7 +243,8 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           editCard,
           moveCard,
           setDragPosition,
-        }}>
+        }}
+      >
         {children}
       </GlobalContext.Provider>
     );
