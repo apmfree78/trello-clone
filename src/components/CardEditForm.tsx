@@ -1,4 +1,6 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable react/prop-types */
+
+import React from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import { useContext, FormEvent } from 'react';
 import SendIcon from '@mui/icons-material/Send';
@@ -74,7 +76,8 @@ const CardEditForm: React.FC<Props> = ({
           size='large'
           variant='contained'
           color='success'
-          endIcon={<SendIcon />}>
+          endIcon={<SendIcon />}
+        >
           Save Changes
         </Button>
       </Grid>

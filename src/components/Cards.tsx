@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-globals */
+/* eslint-disable react/prop-types */
+import React from 'react';
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
@@ -87,7 +89,8 @@ const Cards: React.FC<Props> = ({ category }) => {
           <CardModal
             open={modelOpen}
             setOpen={setModalOpen}
-            message={`Edit Card`}>
+            message={`Edit Card`}
+          >
             {/* CardEditForm is passed a child to CardModal and then
               displayed in the Modal */}
             <CardEditForm
@@ -114,7 +117,8 @@ const Cards: React.FC<Props> = ({ category }) => {
             onDragEnd={moveCard}
             key={i}
             elevation={8}
-            draggable>
+            draggable
+          >
             {card.title}
             {/* pencil icon to show modal popup that allows user to edit and delete card */}
             <span>
@@ -142,7 +146,8 @@ const Cards: React.FC<Props> = ({ category }) => {
         onDragEnd={moveCard}
         key={0}
         elevation={8}
-        draggable>
+        draggable
+      >
         This list is lonely! 😔
       </ItemHidden>
     );

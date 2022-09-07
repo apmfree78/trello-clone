@@ -89,7 +89,7 @@ export const cardSlice = createSlice({
     // given in DragCoorindates
     moveCard(state, action: PayloadAction<DragVector>) {
       // action.payload represent coordinates of the starting
-    // and ending positions of the card that has been dragged
+      // and ending positions of the card that has been dragged
       if (
         action.payload?.start === undefined ||
         action.payload?.current === undefined
@@ -99,9 +99,9 @@ export const cardSlice = createSlice({
       // now extracting starting position of card (when user first dragged)
       // and final position of card (when user dropped)
       const { category: startCategory, index: startIndex } =
-        action.payload?.start;
+        action.payload.start;
       const { category: finalCategory, index: finalIndex } =
-        action.payload?.current;
+        action.payload.current;
 
       // second validation if final and start position are same
       // then exit (as there no where for the card to move!)

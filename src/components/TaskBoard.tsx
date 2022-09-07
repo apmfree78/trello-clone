@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import Box from '@mui/material/Box';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -95,7 +97,8 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
             <Button
               sx={{ fontWeight: 'bold' }}
               variant='contained'
-              onClick={handleClick}>
+              onClick={handleClick}
+            >
               Add Card
             </Button>
             {/* click this below close icon to close add card form */}
@@ -111,7 +114,8 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
         <Box sx={buttonFlex}>
           <Button
             sx={{ fontSize: '1rem', color: 'gray' }}
-            onClick={() => setShowForm(true)}>
+            onClick={() => setShowForm(true)}
+          >
             + Add a card
           </Button>
         </Box>
