@@ -13,9 +13,15 @@ export default configureStore({
 });
 
 // testing redux store
-const newState = cardReducer(
+let newState = cardReducer(
   initialState,
   cardAdd('DONE', 'Quite Coffee', 'Get it Done')
 );
 
+console.log(newState);
+
+newState = cardReducer(initialState, cardDelete('3'));
+console.log(newState);
+
+newState = cardReducer(initialState, cardEdit('5', 'Read 2 Books', 'read now'));
 console.log(newState);

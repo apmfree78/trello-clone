@@ -9,6 +9,12 @@ export interface CardState {
   title: string;
   desp: string;
 }
+// card edit reducer paylaod type
+interface CardEditProp {
+  id: string;
+  title: string;
+  desp: string;
+}
 
 // hold card sample data , for a full fledge app this
 // data would be pull via API to backend database
@@ -61,17 +67,28 @@ export const cardSlice = createSlice({
         };
       },
     },
-    cardEdit(state, action: PayloadAction<CardState>) {
-      // destructioning paylaod
-      const { title, desp } = action.payload;
-      // extracting location of cared to edit
-      const cardToEdit = state.find((card) => card.id === action.payload.id);
+    cardEdit: {
+      reducer(state, action: PayloadAction<CardEditProp>) {
+        // destructioning paylaod
+        const { title, desp } = action.payload;
+        // extracting location of cared to edit
+        const cardToEdit = state.find((card) => card.id === action.payload.id);
 
-      if (cardToEdit) {
-        //updating card values
-        cardToEdit.title = title;
-        cardToEdit.desp = desp;
-      }
+        if (cardToEdit) {
+          //updating card values
+          cardToEdit.title = title;
+          cardToEdit.desp = desp;
+        }
+      },
+      prepare(id, title, desp) {
+        return {
+          payload: {
+            id,
+            title,
+            desp,
+          },
+        };
+      },
     },
     cardDelete(state, action: PayloadAction<string>) {
       // extracting location of card in state array by using
