@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import Box from '@mui/material/Box';
-import React from 'react';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import { useState, ChangeEvent, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import React, { useState, ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { cardAdd } from '../state/cardSlice';
 import Cards from './Cards';
 
 // this component holds a Trello column, in our case
@@ -39,9 +39,8 @@ const buttonFlex = {
 // it will call Card component to list all of its
 // cards and display a form to add a card
 const TaskBoard: React.FC<Props> = ({ category }) => {
-  // importing function to add a new Card to Board
-  // form Global Context
-  const { addCard } = useContext(GlobalContext);
+  // setting dispatch to call cardAdd
+  const dispatch = useDispatch();
   // input value when user creates new card
   const [input, setInput] = useState<string>('');
   // click '+ Add a Card' to show add card input form
@@ -62,7 +61,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
     // dispatching action to add new task
     // desp is blank, it's added optionally
     // later with modal pop up
-    addCard({ category, title: input, desp: '' });
+    dispatch(cardAdd(category, input, ''));
 
     // clearing input
     setInput('');

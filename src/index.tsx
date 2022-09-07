@@ -21,10 +21,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <GlobalProvider>
+    <GlobalProvider>
+      <Provider store={store}>
         <App />
-      </GlobalProvider>
-    </Provider>
+      </Provider>
+    </GlobalProvider>
   </React.StrictMode>
 );

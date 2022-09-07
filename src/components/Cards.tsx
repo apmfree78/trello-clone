@@ -3,13 +3,14 @@
 import React from 'react';
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
-import { cardProp } from '../lib/interfaces';
 import { styled } from '@mui/material/styles';
 import CardModal from './CardModal';
 import { GlobalContext } from '../context/GlobalContext';
 import CardEditForm from './CardEditForm';
+import { CardState, moveCard, cardDelete } from '../state/cardSlice';
 interface Props {
   category: string;
 }
@@ -44,14 +45,16 @@ const ItemHidden = styled(Paper)(({ theme }) => ({
 const Cards: React.FC<Props> = ({ category }) => {
   // set modal open / close state, if true, modal popup will show
   // if false modal popup will remain hidden
+  const cardState = useSelector((state: { cards: CardState[] }) => state);
+  const dispatch = useDispatch();
+  console.log(cardState);
+  const { dragCoordinates, setDragPosition } = useContext(GlobalContext);
   const [modelOpen, setModalOpen] = useState<boolean>(false);
 
   // IMPORT FROM GLOBAL CONTEXT
   // importing cards, setDragPosition which tracks movment of
   // card when its dragged , moveCard, which executes the move,
   // deleteCard which delete the card
-  const { cards, setDragPosition, moveCard, deleteCard } =
-    useContext(GlobalContext);
 
   // getting current card index, need this for Card Modal
   const [currentCardIndex, setCurrentCardIndex] = useState<number | null>(null);
@@ -69,15 +72,22 @@ const Cards: React.FC<Props> = ({ category }) => {
 
   // dispatches deleting of card at index (of category)
   // to deleteCard global context method
-  const handleDelete = (index: number) => {
+  const handleDelete = (id: string) => {
     if (confirm('Are you sure want to delete this card?')) {
-      deleteCard(category, index);
+      console.log(id);
+      dispatch(cardDelete(id));
     }
   };
 
+  const handleDrag = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    // console.log(dragCoordinates);
+    dispatch(moveCard(dragCoordinates.current));
+  };
   //filtering out relevant cards for this Board by category
-  const relevantCards: cardProp[] | undefined = cards?.filter(
-    (card: cardProp) => card.category === category
+  const relevantCards: CardState[] | undefined = cardState.cards?.filter(
+    (card: CardState) => card.category === category
   );
 
   // check if board has any elements
@@ -95,7 +105,7 @@ const Cards: React.FC<Props> = ({ category }) => {
               displayed in the Modal */}
             <CardEditForm
               category={category}
-              index={currentCardIndex || 0}
+              id={relevantCards[currentCardIndex || 0].id}
               title={relevantCards[currentCardIndex || 0].title}
               description={relevantCards[currentCardIndex || 0].desp}
             />
@@ -114,7 +124,7 @@ const Cards: React.FC<Props> = ({ category }) => {
               setDragPosition({ category, index: i }, 'current')
             }
             onDragStart={() => setDragPosition({ category, index: i }, 'start')}
-            onDragEnd={moveCard}
+            onDragEnd={(e) => handleDrag(e)}
             key={i}
             elevation={8}
             draggable
@@ -129,7 +139,7 @@ const Cards: React.FC<Props> = ({ category }) => {
               />
               {/* user can click this X icon to delete a card */}
               <CloseIcon
-                onClick={() => handleDelete(i)}
+                onClick={() => handleDelete(card.id)}
                 color='action'
                 sx={{ fontSize: 17, paddingRight: 1, paddingBottom: 1 }}
               />
@@ -143,7 +153,7 @@ const Cards: React.FC<Props> = ({ category }) => {
     return (
       <ItemHidden
         onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}
-        onDragEnd={moveCard}
+        onDragEnd={(e) => handleDrag(e)}
         key={0}
         elevation={8}
         draggable

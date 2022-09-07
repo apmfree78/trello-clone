@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 import { Position, DragVector } from '../lib/interfaces';
 
@@ -56,7 +56,7 @@ export const cardSlice = createSlice({
       reducer(state, action: PayloadAction<CardState>) {
         state.push(action.payload);
       },
-      prepare(category, title, desp) {
+      prepare(category: string, title: string, desp: string) {
         return {
           payload: {
             id: nanoid(),
@@ -76,11 +76,12 @@ export const cardSlice = createSlice({
 
         if (cardToEdit) {
           //updating card values
+          console.log('editing card');
           cardToEdit.title = title;
           cardToEdit.desp = desp;
         }
       },
-      prepare(id, title, desp) {
+      prepare(id: string, title: string, desp: string) {
         return {
           payload: {
             id,
@@ -97,7 +98,8 @@ export const cardSlice = createSlice({
 
       if (index) {
         //deleting card at index
-        state.slice(index, 1);
+        console.log(`deleting card at ${index}`);
+        state.splice(index, 1);
       }
     },
 
@@ -107,6 +109,7 @@ export const cardSlice = createSlice({
     moveCard(state, action: PayloadAction<DragVector>) {
       // action.payload represent coordinates of the starting
       // and ending positions of the card that has been dragged
+      console.log(action.payload);
       if (
         action.payload?.start === undefined ||
         action.payload?.current === undefined
@@ -124,8 +127,10 @@ export const cardSlice = createSlice({
       // then exit (as there no where for the card to move!)
       if (startCategory === finalCategory && startIndex === finalIndex) return;
 
+      console.log(`start cat: ${startCategory}, index: ${startIndex}`);
+      console.log(`final cat: ${finalCategory}, index: ${finalIndex}`);
       //filtering out and extract board where card was first Dragged from
-      const startBoard: CardState[] | undefined = state?.filter(
+      const startBoard: CardState[] | undefined = current(state).filter(
         (card) => card.category === startCategory
       );
       if (startBoard === undefined) return; //quick validation check
@@ -134,43 +139,53 @@ export const cardSlice = createSlice({
       const cardToMove: CardState = startBoard[startIndex];
 
       // removing card from starting drag position
+      console.log('removing card from initial position');
       startBoard.splice(startIndex, 1);
 
       // if starting category and final category are the same then
       // card was just moved into a different position on the same board
       if (startCategory === finalCategory) {
         //inserting dragged item in new position
+        console.log('adding card to new position');
         startBoard.splice(finalIndex, 0, cardToMove);
 
+        console.log(startBoard);
         //*****************setting state ***************
         // extracting other card Boards and combining with startBoard
-        const otherBoards: CardState[] | undefined = state?.filter(
+        const otherBoards: CardState[] | undefined = current(state).filter(
           (card) => card.category !== startCategory
         );
-        state = [...otherBoards, ...startBoard];
+        console.log(otherBoards);
+        return [...otherBoards, ...startBoard];
       } else {
         // start category and final category are different
         //here we are moving cards from 1 Board to Another
 
         //determine final board
-        const finalBoard: CardState[] | undefined = state?.filter(
+        const finalBoard: CardState[] | undefined = current(state).filter(
           (card) => card.category === finalCategory
         );
 
         //updating category on cardToMove to match finalCategory
-        cardToMove.category = finalCategory;
+        // cardToMove.category = finalCategory;
 
         //inserting dragged item in new position on NEW Board
-        finalBoard.splice(finalIndex, 0, cardToMove);
+        finalBoard.splice(finalIndex, 0, {
+          id: cardToMove.id,
+          category: finalCategory,
+          title: cardToMove.title,
+          desp: cardToMove.desp,
+        });
 
+        console.log(finalBoard);
         //*****************setting state ***************
         // extracting other card Boards and combining with startBoard
-        const otherBoards: CardState[] | undefined = state?.filter(
+        const otherBoards: CardState[] | undefined = current(state).filter(
           (card) =>
             card.category !== startCategory && card.category !== finalCategory
         );
 
-        state = [...otherBoards, ...startBoard, ...finalBoard]; // set state
+        return [...otherBoards, ...startBoard, ...finalBoard]; // set state
       }
     },
   },

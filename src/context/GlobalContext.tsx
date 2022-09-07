@@ -53,6 +53,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   );
   // setting up useRef to starting and current position
   // of a card while it's being dragged
+
   const dragCoordinates = useRef<DragVector | null>(null);
 
   // track index and category of card while it's being dragged
@@ -152,9 +153,9 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
     // now extracting starting position of card (when user first dragged)
     // and final position of card (when user dropped)
     const { category: startCategory, index: startIndex } =
-      dragCoordinates.current?.start;
+      dragCoordinates.current.start;
     const { category: finalCategory, index: finalIndex } =
-      dragCoordinates.current?.current;
+      dragCoordinates.current.current;
 
     // second validation if final and start position are same
     // then exit (as there no where for the card to move!)
@@ -228,6 +229,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           editCard,
           moveCard,
           setDragPosition,
+          dragCoordinates,
         }}
       >
         {children}
@@ -243,6 +245,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           editCard,
           moveCard,
           setDragPosition,
+          dragCoordinates,
         }}
       >
         {children}

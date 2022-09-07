@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { Button, TextField, Grid } from '@mui/material';
-import { useContext, FormEvent } from 'react';
+import { FormEvent } from 'react';
 import SendIcon from '@mui/icons-material/Send';
-import { GlobalContext } from '../context/GlobalContext';
+import { cardEdit } from '../state/cardSlice';
+import { useDispatch } from 'react-redux';
 import useForm from '../lib/useForm';
 
 interface Props {
   category: string;
-  index: number;
+  id: string;
   title: string;
   description: string;
 }
@@ -19,11 +20,11 @@ interface Props {
 // when user clicks pencil icon
 const CardEditForm: React.FC<Props> = ({
   category,
-  index,
+  id,
   title,
   description,
 }) => {
-  const { editCard } = useContext(GlobalContext);
+  const dispatch = useDispatch();
   // create state for form input and handling
   // using custom hook useFomr
   const { inputs, handleChange } = useForm({ title, description });
@@ -34,10 +35,7 @@ const CardEditForm: React.FC<Props> = ({
 
     // dispatching form changes to editCard that will update
     // global state and rerender DOM with updates
-    editCard(
-      { category, title: inputs.title, desp: inputs.description },
-      index
-    );
+    dispatch(cardEdit(id, inputs.title, inputs.description));
   };
 
   // input form to update Card,
