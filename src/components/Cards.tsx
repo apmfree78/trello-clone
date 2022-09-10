@@ -47,7 +47,7 @@ const Cards: React.FC<Props> = ({ category }) => {
   // if false modal popup will remain hidden
   const cardState = useSelector((state: { cards: CardState[] }) => state);
   const dispatch = useDispatch();
-  console.log(cardState);
+  // console.log(cardState);
   const { dragCoordinates, setDragPosition } = useContext(GlobalContext);
   const [modelOpen, setModalOpen] = useState<boolean>(false);
 

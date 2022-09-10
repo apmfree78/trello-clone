@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { loadState } from './localStorage';
 import cardReducer from './cardSlice';
 //   initialState,
 //   cardAdd,
@@ -9,6 +10,7 @@ export default configureStore({
   reducer: {
     cards: cardReducer,
   },
+  preloadedState: loadState(),
 });
 
 // // testing redux store
