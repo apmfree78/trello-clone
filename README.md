@@ -1,24 +1,18 @@
-# Productivity App - Trello clone build with React, TypeScript, and Material UI
+# Productivity App - Trello clone build with React, TypeScript, Redux and Material UI
 
 Add, edit, delete, and move cards with this trello clone.  Drag and drop feature
 makes it easy to drag a card to another list or reodering within the same list.
 
-## `useContext`, `useState`, & `useRef` for State Management
+## Modern Redux for State Management
 
-A global context is setup in [this file](https://github.com/apmfree78/trello-clone/blob/master/src/context/GlobalContext.tsx)
+Latest version of Redux is used to manage state of all cards and card actions.
 
-This context includes the state: object containing all cards and a ref
+In addition to this we use a global context, that includes a ref
 containing coordinates (starting and ending) of a card that is being
-dragged by user. 
+dragged by user and a function to record drag coordinates. 
 
-The global context also includes all methods to add, edit, delete, and move
-cards (by dragging).
-
-This context is accessible from any component in App.
-
-This setup works well for scaling as it's now easy to transition to
-redux state management and/or apollo graphQL (if we decide to create another
-app that would function as API endpoint to a SQL or mongoDB database).
+This setup works well for scaling if we decide to create another
+app that would function as API endpoint to a SQL or mongoDB database.
 
 This would be next steps if goal was to eventually commercialize the app.
 
