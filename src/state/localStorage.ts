@@ -1,6 +1,5 @@
-import { initialState } from "./cardSlice";
+import { initialState } from './cardSlice';
 const KEY = 'redux';
-
 
 // getting state from localStorage
 export function loadState() {
