@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -39,7 +40,8 @@ const CardModal: React.FC<Props> = ({ open, setOpen, message, children }) => {
       open={open}
       onClose={handleClose}
       aria-labelledby='update card'
-      aria-describedby='modal popup to edit card'>
+      aria-describedby='modal popup to edit card'
+    >
       <Box sx={style}>
         <Grid container justifyContent='flex-end' alignItems='flex-start'>
           <IconButton onClick={() => setOpen(false)}>
@@ -55,7 +57,8 @@ const CardModal: React.FC<Props> = ({ open, setOpen, message, children }) => {
             fontWeight: 'bold',
             fontStyle: 'italic',
             p: 1,
-          }}>
+          }}
+        >
           {message}
         </Typography>
         {children}
