@@ -67,7 +67,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   };
 
   return (
-    <Box sx={boardStyle}>
+    <Box data-testid='board' sx={boardStyle}>
       {category}
       {/* ***************************************************************** */}
       {/* ***************************************************************** */}
@@ -82,6 +82,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
       {showForm ? (
         <>
           <TextField
+            role='textarea'
             required
             sx={{ bgcolor: 'white' }}
             id='card'
@@ -95,7 +96,8 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
             <Button
               sx={{ fontWeight: 'bold' }}
               variant='contained'
-              onClick={handleClick}>
+              onClick={handleClick}
+            >
               Add Card
             </Button>
             {/* click this below close icon to close add card form */}
@@ -111,7 +113,8 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
         <Box sx={buttonFlex}>
           <Button
             sx={{ fontSize: '1rem', color: 'gray' }}
-            onClick={() => setShowForm(true)}>
+            onClick={() => setShowForm(true)}
+          >
             + Add a card
           </Button>
         </Box>

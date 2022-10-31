@@ -34,7 +34,8 @@ const App: React.FC = () => {
         direction='row'
         justifyContent='center'
         alignItems='flex-start'
-        spacing={2}>
+        spacing={2}
+      >
         {/* Creating Grid with 3 main Trello Boards */}
         <Grid item sx={gridStyle} xs={12} sm={4} md={3}>
           <TaskBoard category='TO DO' />
