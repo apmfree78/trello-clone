@@ -58,8 +58,20 @@ test('add button element is present', () => {
   expect(boardElement).toBeInTheDocument();
 });
 
-test('Board element contains correct category title', () => {
+test('Board element contains correct category title TO DO', () => {
   render(<TaskBoard category='TO DO' />);
   const boardElement = screen.getByTestId('board');
   expect(boardElement).toHaveTextContent('TO DO');
+});
+
+test('Board element contains correct category title IN PROGRESS', () => {
+  render(<TaskBoard category='IN PROGRESS' />);
+  const boardElement = screen.getByTestId('board');
+  expect(boardElement).toHaveTextContent('IN PROGRESS');
+});
+
+test('Board element contains correct category title DONE', () => {
+  render(<TaskBoard category='DONE' />);
+  const boardElement = screen.getByTestId('board');
+  expect(boardElement).toHaveTextContent('DONE');
 });
