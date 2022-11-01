@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import TaskBoard from '../TaskBoard';
+import Cards from '../Cards';
+import { CardState } from '../../state/cardSlice';
 
 jest.mock('nanoid', () => 'abc123');
 jest.mock('react-redux', () => ({
   useDispatch: () => {
     return null;
   },
-  useSelector: () => {
+  useSelector: (state: { cards: CardState[] }) => {
     return [
       { id: '1', category: 'TO DO', title: 'Yoga', desp: 'Go to Yoga' },
       { id: '2', category: 'TO DO', title: 'Gym', desp: 'Go to Gym' },
@@ -44,22 +45,8 @@ jest.mock('react-redux', () => ({
   },
 }));
 
-test('Board element is present', () => {
-  render(<TaskBoard category='TO DO' />);
-  const boardElement = screen.getByTestId('board');
-  expect(boardElement).toBeInTheDocument();
-});
-
-test('add button element is present', () => {
-  render(<TaskBoard category='TO DO' />);
-  const boardElement = screen.getByRole('button', {
-    name: '+ Add a card',
-  });
-  expect(boardElement).toBeInTheDocument();
-});
-
-test('Board element contains correct category title', () => {
-  render(<TaskBoard category='TO DO' />);
-  const boardElement = screen.getByTestId('board');
-  expect(boardElement).toHaveTextContent('TO DO');
+test('list items are present', () => {
+  render(<Cards category='TO DO' />);
+  const listItem = screen.getByRole('listitem');
+  expect(listItem).toBeInTheDocument();
 });

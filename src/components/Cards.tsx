@@ -114,6 +114,7 @@ const Cards: React.FC<Props> = ({ category }) => {
         {/* show all cards for this category by mapping through revelantCards */}
         {relevantCards.map((card, i) => (
           <Item
+            role='listitem'
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -152,6 +153,7 @@ const Cards: React.FC<Props> = ({ category }) => {
     //return default hidden element that allows user to drag card to empty board
     return (
       <ItemHidden
+        role='listitem'
         onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}
         onDragEnd={(e) => handleDrag(e)}
         key={0}
