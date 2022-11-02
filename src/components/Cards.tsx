@@ -134,6 +134,7 @@ const Cards: React.FC<Props> = ({ category }) => {
             {/* pencil icon to show modal popup that allows user to edit and delete card */}
             <span>
               <EditIcon
+                data-testid={`${card.title} edit`}
                 onClick={() => showCardDetails(i)}
                 color='action'
                 sx={{ fontSize: 17, paddingBottom: 1 }}

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Cards from '../Cards';
 import { CardState } from '../../state/cardSlice';
+import user from '@testing-library/user-event';
 
 jest.mock('nanoid', () => 'abc123');
 jest.mock('react-redux', () => ({
@@ -58,6 +59,49 @@ test('list items are present', () => {
   expect(listItem).toBeInTheDocument();
 });
 
+test('edit modal appears present when pencil icon is clicked', async () => {
+  render(<Cards category='TO DO' />);
+  const pencilIconForYoga = screen.getByTestId(/yoga edit/i);
+  //click pencil icon
+  await user.click(pencilIconForYoga);
+  // check that headline for modal appears
+  const modalHeader = screen.getByRole('heading', { name: /edit card/i });
+  expect(modalHeader).toBeInTheDocument();
+});
+
+test('edit modal title input appears present when pencil icon is clicked', async () => {
+  render(<Cards category='TO DO' />);
+  const pencilIconForYoga = screen.getByTestId(/yoga edit/i);
+  //click pencil icon
+  await user.click(pencilIconForYoga);
+
+  // check that title appears
+  const title = screen.getByRole('textbox', { name: /title/i });
+  expect(title).toBeInTheDocument();
+});
+
+test('edit modal description input appears present when pencil icon is clicked', async () => {
+  render(<Cards category='TO DO' />);
+  const pencilIconForYoga = screen.getByTestId(/yoga edit/i);
+  //click pencil icon
+  await user.click(pencilIconForYoga);
+
+  // check that description appears
+  const description = screen.getByRole('textbox', { name: /description/i });
+  expect(description).toBeInTheDocument();
+});
+
+test('edit modal save button appears present when pencil icon is clicked', async () => {
+  render(<Cards category='TO DO' />);
+  const pencilIconForYoga = screen.getByTestId(/yoga edit/i);
+  //click pencil icon
+  await user.click(pencilIconForYoga);
+
+  // check that button appears
+  const saveButton = screen.getByRole('button', { name: /save changes/i });
+  expect(saveButton).toBeInTheDocument();
+});
+
 test('list items are present', () => {
   render(<Cards category='TO DO' />);
   const listItem = screen.getByText(/Get Gas for Car/i);
@@ -80,4 +124,22 @@ test('list items are present', async () => {
   render(<Cards category='DONE' />);
   const listItem = await screen.findByText(/Dinner/i);
   expect(listItem).toBeInTheDocument();
+});
+
+test('correct # of items in DONE board', () => {
+  render(<Cards category='DONE' />);
+  const listItems = screen.getAllByRole('listitem');
+  expect(listItems.length).toEqual(3);
+});
+
+test('correct # of items in IN PROGRESS board', () => {
+  render(<Cards category='IN PROGRESS' />);
+  const listItems = screen.getAllByRole('listitem');
+  expect(listItems.length).toEqual(3);
+});
+
+test('correct # of items in TO DO board', () => {
+  render(<Cards category='TO DO' />);
+  const listItems = screen.getAllByRole('listitem');
+  expect(listItems).toHaveLength(6);
 });

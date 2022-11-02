@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import TaskBoard from '../TaskBoard';
+import user from '@testing-library/user-event';
 
 jest.mock('nanoid', () => 'abc123');
 jest.mock('react-redux', () => ({
@@ -59,10 +60,26 @@ test('Board element is present', () => {
 
 test('add button element is present', () => {
   render(<TaskBoard category='TO DO' />);
-  const boardElement = screen.getByRole('button', {
+  const addButton = screen.getByRole('button', {
     name: '+ Add a card',
   });
-  expect(boardElement).toBeInTheDocument();
+  expect(addButton).toBeInTheDocument();
+});
+
+// user interaction test
+test('+ Add a card button click reveals textarea box', async () => {
+  render(<TaskBoard category='TO DO' />);
+  const addButton = screen.getByRole('button', {
+    name: '+ Add a card',
+  });
+  // click + Add a card button
+  await user.click(addButton);
+
+  // see if input textarea shows up
+  const revealedInput = screen.getByRole('textbox', {
+    name: /enter title for new card\.\.\./i,
+  });
+  expect(revealedInput).toBeInTheDocument();
 });
 
 test('Board element contains correct category title TO DO', () => {
