@@ -1,12 +1,12 @@
 // custom hook to handle form values
-import { useState } from 'react';
+import { useState } from "react";
 interface inputProps {
   title: string;
   description: string;
 }
 
 export default function useForm(
-  initial: inputProps = { title: '', description: '' }
+  initial: inputProps = { title: "", description: "" }
 ) {
   const [inputs, setInputs] = useState(initial);
 
@@ -19,7 +19,7 @@ export default function useForm(
     let { value } = e.target;
     const { name, type } = e.target;
 
-    if (type === 'number') {
+    if (type === "number") {
       value = parseInt(value);
     }
 
@@ -34,7 +34,7 @@ export default function useForm(
   }
 
   function clearForm() {
-    const blankState: inputProps = { title: '', description: '' };
+    const blankState: inputProps = { title: "", description: "" };
     setInputs(blankState);
   }
 

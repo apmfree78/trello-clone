@@ -1,16 +1,16 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import Paper from '@mui/material/Paper';
-import { useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import EditIcon from '@mui/icons-material/Edit';
-import CloseIcon from '@mui/icons-material/Close';
-import { styled } from '@mui/material/styles';
-import CardModal from './CardModal';
-import { GlobalContext } from '../context/GlobalContext';
-import CardEditForm from './CardEditForm';
-import { CardState, moveCard, cardDelete } from '../state/cardSlice';
+import React from "react";
+import Paper from "@mui/material/Paper";
+import { useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import EditIcon from "@mui/icons-material/Edit";
+import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material/styles";
+import CardModal from "./CardModal";
+import { GlobalContext } from "../context/GlobalContext";
+import CardEditForm from "./CardEditForm";
+import { CardState, moveCard, cardDelete } from "../state/cardSlice";
 interface Props {
   category: string;
 }
@@ -18,14 +18,14 @@ interface Props {
 //design for each card element
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  textAlign: 'left',
+  textAlign: "left",
   paddingLeft: 8,
   paddingTop: 8,
   paddingBottom: 1,
   color: theme.palette.text.secondary,
-  height: 'auto',
-  '&:active': {
-    backgroundColor: '#77be77',
+  height: "auto",
+  "&:active": {
+    backgroundColor: "#77be77",
   },
 }));
 
@@ -34,11 +34,11 @@ const Item = styled(Paper)(({ theme }) => ({
 // cards to this board
 const ItemHidden = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  textAlign: 'left',
+  textAlign: "left",
   paddingLeft: 8,
-  backgroundColor: 'gray',
+  backgroundColor: "gray",
   height: 20,
-  lineHeight: '1.25em',
+  lineHeight: "1.25em",
 }));
 
 // display all cards for a given trello board (list)
@@ -73,7 +73,7 @@ const Cards: React.FC<Props> = ({ category }) => {
   // dispatches deleting of card at index (of category)
   // to deleteCard global context method
   const handleDelete = (id: string) => {
-    if (confirm('Are you sure want to delete this card?')) {
+    if (confirm("Are you sure want to delete this card?")) {
       console.log(id);
       dispatch(cardDelete(id));
     }
@@ -104,7 +104,6 @@ const Cards: React.FC<Props> = ({ category }) => {
             {/* CardEditForm is passed a child to CardModal and then
               displayed in the Modal */}
             <CardEditForm
-              category={category}
               id={relevantCards[currentCardIndex || 0].id}
               title={relevantCards[currentCardIndex || 0].title}
               description={relevantCards[currentCardIndex || 0].desp}
@@ -114,17 +113,17 @@ const Cards: React.FC<Props> = ({ category }) => {
         {/* show all cards for this category by mapping through revelantCards */}
         {relevantCards.map((card, i) => (
           <Item
-            role='listitem'
+            role="listitem"
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              color: 'black',
+              display: "flex",
+              justifyContent: "space-between",
+              color: "black",
             }}
             // tracking the dragging of the card and if another card is being dragged above it
             onDragEnter={() =>
-              setDragPosition({ category, index: i }, 'current')
+              setDragPosition({ category, index: i }, "current")
             }
-            onDragStart={() => setDragPosition({ category, index: i }, 'start')}
+            onDragStart={() => setDragPosition({ category, index: i }, "start")}
             onDragEnd={(e) => handleDrag(e)}
             key={i}
             elevation={8}
@@ -136,13 +135,13 @@ const Cards: React.FC<Props> = ({ category }) => {
               <EditIcon
                 data-testid={`${card.title} edit`}
                 onClick={() => showCardDetails(i)}
-                color='action'
+                color="action"
                 sx={{ fontSize: 17, paddingBottom: 1 }}
               />
               {/* user can click this X icon to delete a card */}
               <CloseIcon
                 onClick={() => handleDelete(card.id)}
-                color='action'
+                color="action"
                 sx={{ fontSize: 17, paddingRight: 1, paddingBottom: 1 }}
               />
             </span>
@@ -154,8 +153,8 @@ const Cards: React.FC<Props> = ({ category }) => {
     //return default hidden element that allows user to drag card to empty board
     return (
       <ItemHidden
-        role='listitem'
-        onDragEnter={() => setDragPosition({ category, index: 0 }, 'current')}
+        role="listitem"
+        onDragEnter={() => setDragPosition({ category, index: 0 }, "current")}
         onDragEnd={(e) => handleDrag(e)}
         key={0}
         elevation={8}

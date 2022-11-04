@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
-import React, { useState, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import { cardAdd } from '../state/cardSlice';
-import Cards from './Cards';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import React, { useState, ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
+import { cardAdd } from "../state/cardSlice";
+import Cards from "./Cards";
 
 // this component holds a Trello column, in our case
 // it will be either TODO , IN-PROGRESS, or DONE columns
@@ -20,18 +20,18 @@ interface Props {
 // css grid for trello board
 const boardStyle = {
   p: 2,
-  bgcolor: '#EBECF0',
-  border: '1px',
-  borderRadius: '2px',
-  display: 'grid',
-  fontWeight: 'bold',
-  gridTemplateColumns: { md: '1fr' },
+  bgcolor: "#EBECF0",
+  border: "1px",
+  borderRadius: "2px",
+  display: "grid",
+  fontWeight: "bold",
+  gridTemplateColumns: { md: "1fr" },
   gap: 1.5,
 };
 // aligment for buttons
 const buttonFlex = {
-  display: 'Flex',
-  justifyContent: 'flex-start',
+  display: "Flex",
+  justifyContent: "flex-start",
 };
 
 // This component represents the list or board,
@@ -42,7 +42,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   // setting dispatch to call cardAdd
   const dispatch = useDispatch();
   // input value when user creates new card
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState<string>("");
   // click '+ Add a Card' to show add card input form
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -56,19 +56,19 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
   // task is added to state
   const handleClick = (): void => {
     //checking if there is a valid input
-    if (input === '') return;
+    if (input === "") return;
 
     // dispatching action to add new task
     // desp is blank, it's added optionally
     // later with modal pop up
-    dispatch(cardAdd(category, input, ''));
+    dispatch(cardAdd(category, input, ""));
 
     // clearing input
-    setInput('');
+    setInput("");
   };
 
   return (
-    <Box data-testid='board' sx={boardStyle}>
+    <Box data-testid="board" sx={boardStyle}>
       {category}
       {/* ***************************************************************** */}
       {/* ***************************************************************** */}
@@ -83,11 +83,11 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
       {showForm ? (
         <>
           <TextField
-            role='textarea'
+            role="textarea"
             required
-            sx={{ bgcolor: 'white' }}
-            id='card'
-            label='Enter title for new card...'
+            sx={{ bgcolor: "white" }}
+            id="card"
+            label="Enter title for new card..."
             multiline
             rows={2}
             value={input}
@@ -95,15 +95,15 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
           />
           <Box sx={buttonFlex}>
             <Button
-              sx={{ fontWeight: 'bold' }}
-              variant='contained'
+              sx={{ fontWeight: "bold" }}
+              variant="contained"
               onClick={handleClick}
             >
               Add Card
             </Button>
             {/* click this below close icon to close add card form */}
             <CloseIcon
-              color='disabled'
+              color="disabled"
               sx={{ paddingLeft: 1, paddingTop: 0.6 }}
               onClick={() => setShowForm(false)}
             />
@@ -113,7 +113,7 @@ const TaskBoard: React.FC<Props> = ({ category }) => {
         // Click this button to reveal add card form
         <Box sx={buttonFlex}>
           <Button
-            sx={{ fontSize: '1rem', color: 'gray' }}
+            sx={{ fontSize: "1rem", color: "gray" }}
             onClick={() => setShowForm(true)}
           >
             + Add a card

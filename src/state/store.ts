@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { loadState } from './localStorage';
-import cardReducer from './cardSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { loadState } from "./localStorage";
+import cardReducer from "./cardSlice";
 //   initialState,
 //   cardAdd,
 //   cardEdit,

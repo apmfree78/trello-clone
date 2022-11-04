@@ -1,12 +1,12 @@
 /* eslint-disable prefer-const */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { GlobalProvider } from './context/GlobalContext';
-import store from './state/store';
-import { Provider } from 'react-redux';
-import { saveState } from './state/localStorage';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { GlobalProvider } from "./context/GlobalContext";
+import store from "./state/store";
+import { Provider } from "react-redux";
+import { saveState } from "./state/localStorage";
 
 // FOR DETAILS ON STATE MANAGEMENT
 // please refer to './context/GlobalContext'
@@ -30,7 +30,7 @@ store.subscribe(() => {
 // rendering App and adding GlobalProvider
 // which gives all components access to global state
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>

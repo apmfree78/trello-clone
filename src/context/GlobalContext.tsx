@@ -1,5 +1,5 @@
-import React, { createContext, useRef } from 'react';
-import { Position, DragVector } from '../lib/interfaces';
+import React, { createContext, useRef } from "react";
+import { Position, DragVector } from "../lib/interfaces";
 // importing sample data
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 */
 
-export const GlobalContext: React.Context<any> = createContext('');
+export const GlobalContext: React.Context<any> = createContext("");
 
 export const GlobalProvider: React.FC<Props> = ({ children }) => {
   // setting up useRef to starting and current position
@@ -24,7 +24,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   // type can be either "start" or "current", indicating
   // what Drag cooridinate is being updated
   const setDragPosition = (position: Position, type: string): void => {
-    if (type === 'current' || type === 'start') {
+    if (type === "current" || type === "start") {
       dragCoordinates.current = {
         ...dragCoordinates?.current,
         [type]: position,
